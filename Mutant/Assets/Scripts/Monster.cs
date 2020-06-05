@@ -1,9 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Monster : MonoBehaviour {
+	public Action onStatsChangeEvent;
+	public Action onHpChangeEvent;
+
 	public float[] Stats;
+	public float currHp;
 
 	[SerializeField] bool IsPlayer;
 	[SerializeField] List<BodyPart> usedBodyParts;
@@ -12,6 +17,20 @@ public class Monster : MonoBehaviour {
 
 	private void Start() {
 		RecreateBodyParts();
+	}
+
+	private void Update() {
+		if(currHp < Stats[(int)StatType.Hp]) {
+			currHp += Stats[(int)StatType.HpRegen] * Time.deltaTime;
+			if (currHp > Stats[(int)StatType.Hp])
+				currHp = Stats[(int)StatType.Hp];
+		onHpChangeEvent?.Invoke();
+		}
+	}
+
+	public void TakeDamage() {
+		currHp -= 25;
+		onHpChangeEvent?.Invoke();
 	}
 
 	void RecreateBodyParts() {
@@ -32,13 +51,18 @@ public class Monster : MonoBehaviour {
 		placedParts.Add(GetInstantiatedPart(BodyPartType.Horns));
 		placedParts.Add(GetInstantiatedPart(BodyPartType.Teeth));
 		placedParts.Add(GetInstantiatedPart(BodyPartType.Eyes));
+
+		currHp = Stats[(int)StatType.Hp];
+
+		onStatsChangeEvent?.Invoke();
+		onHpChangeEvent?.Invoke();
 	}
 
 	BodyPart GetInstantiatedPart(BodyPartType type) {
 		for (int i = 0; i < usedBodyParts.Count; ++i) {
 			BodyPart partPrefab = usedBodyParts[i];
 			if (partPrefab.type == type) {
-				Vector3 pos = Vector3.zero;
+				Vector3 pos = transform.position;
 				Transform parent = transform;
 
 				for (int j = 0; j < placedParts.Count; ++j) {
