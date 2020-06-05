@@ -10,6 +10,7 @@ public enum StatType : byte {
 	AttackSpeed,
 	CriticalChance,
 	GearLevel,
+	LAST_STAT,
 }
 
 public enum BodyPartType {

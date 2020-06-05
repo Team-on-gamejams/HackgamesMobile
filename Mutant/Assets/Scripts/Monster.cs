@@ -8,13 +8,15 @@ public class Monster : MonoBehaviour {
 	[SerializeField] bool IsPlayer;
 	[SerializeField] List<BodyPart> usedBodyParts;
 
-	List<BodyPart> placedParts;
+	List<BodyPart> placedParts = new List<BodyPart>();
 
 	private void Start() {
 		RecreateBodyParts();
 	}
 
 	void RecreateBodyParts() {
+		Stats = new float[(int)StatType.LAST_STAT];
+
 		foreach (var part in placedParts)
 			Destroy(part.gameObject);
 		placedParts.Clear();
@@ -41,10 +43,16 @@ public class Monster : MonoBehaviour {
 
 				for (int j = 0; j < placedParts.Count; ++j) {
 					for (int k = 0; k < placedParts[j].connectionParts.Length; ++k) {
-						if (partPrefab.type == placedParts[j].connectionParts[j]) {
-
+						if (partPrefab.type == placedParts[j].connectionParts[k]) {
+							pos = placedParts[j].connectionPoints[k].position;
+							parent = placedParts[j].connectionPoints[k];
+							break;
 						}
 					}
+				}
+
+				for(int j = 0; j < partPrefab.stats.Length; ++j) {
+					Stats[j] += partPrefab.stats[j].value;
 				}
 
 				return Instantiate(partPrefab, pos, Quaternion.identity, parent).GetComponent<BodyPart>();
