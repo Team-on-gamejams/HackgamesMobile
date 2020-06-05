@@ -6,20 +6,23 @@ using UnityEngine;
 public class Monster : MonoBehaviour {
 	public Action onStatsChangeEvent;
 	public Action onHpChangeEvent;
+	public Action onDie;
 
 	public float[] Stats;
 	public float currHp;
 
 	[SerializeField] bool IsPlayer;
-	[SerializeField] List<BodyPart> usedBodyParts;
+	public List<BodyPart> usedBodyParts;
 
 	List<BodyPart> placedParts = new List<BodyPart>();
+	float oneAttackTime = 0.0f;
+	float currAttackTimer = 0.0f;
 
-	private void Start() {
-		RecreateBodyParts();
+	private void Awake() {
+		Stats = new float[(int)StatType.LAST_STAT];
 	}
 
-	private void Update() {
+	public void RegenerateHealth() {
 		if(currHp < Stats[(int)StatType.Hp]) {
 			currHp += Stats[(int)StatType.HpRegen] * Time.deltaTime;
 			if (currHp > Stats[(int)StatType.Hp])
@@ -28,14 +31,39 @@ public class Monster : MonoBehaviour {
 		}
 	}
 
-	public void TakeDamage() {
-		currHp -= 25;
-		onHpChangeEvent?.Invoke();
+	public bool IsCanDoDamage() {
+		currAttackTimer += Time.deltaTime;
+
+		return currAttackTimer >= oneAttackTime;
 	}
 
-	void RecreateBodyParts() {
-		Stats = new float[(int)StatType.LAST_STAT];
+	public float DoDamage() {
+		currAttackTimer -= oneAttackTime;
 
+		float dmg = Stats[(int)StatType.Attack];
+		bool isCritical = RandomEx.GetEventWithChance(Mathf.RoundToInt(Stats[(int)StatType.CriticalChance]));
+		if (isCritical)
+			dmg *= 1.5f;
+
+		return dmg;
+	}
+
+	public void TakeDamage(float damage) {
+		if (currHp <= 0 || damage <= 1)
+			return;
+
+		damage -= Stats[(int)StatType.Armor];
+		if (damage <= 1)
+			damage = 1;
+
+		currHp -= damage;
+		if(currHp <= 0) {
+			currHp = 0;
+			onDie?.Invoke();
+		}
+	}
+
+	public void RecreateBodyParts() {
 		foreach (var part in placedParts)
 			Destroy(part.gameObject);
 		placedParts.Clear();
@@ -52,7 +80,22 @@ public class Monster : MonoBehaviour {
 		placedParts.Add(GetInstantiatedPart(BodyPartType.Teeth));
 		placedParts.Add(GetInstantiatedPart(BodyPartType.Eyes));
 
+		RecalcStats();
+	}
+
+	public void RecalcStats() {
+		for (int i = 0; i < Stats.Length; ++i) {
+			Stats[i] = 0.0f;
+		}
+
+		for (int i = 0; i < placedParts.Count; ++i) {
+			for (int j = 0; j < placedParts[i].stats.Length; ++j) {
+				Stats[j] += placedParts[i].stats[j].value;
+			}
+		}
+
 		currHp = Stats[(int)StatType.Hp];
+		oneAttackTime = 1.0f / (Stats[(int)StatType.AttackSpeed] != 0 ? Stats[(int)StatType.AttackSpeed] : 1);
 
 		onStatsChangeEvent?.Invoke();
 		onHpChangeEvent?.Invoke();
@@ -73,15 +116,14 @@ public class Monster : MonoBehaviour {
 							break;
 						}
 					}
-				}
-
-				for(int j = 0; j < partPrefab.stats.Length; ++j) {
-					Stats[j] += partPrefab.stats[j].value;
+					if (parent != transform)
+						break;
 				}
 
 				return Instantiate(partPrefab, pos, Quaternion.identity, parent).GetComponent<BodyPart>();
 			}
 		}
+
 		return null;
 	}
 }

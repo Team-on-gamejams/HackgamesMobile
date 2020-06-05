@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScreenManager : MonoBehaviour {
+	[Header("UI")][Space]
 	[SerializeField] CanvasGroup battleCanvas;
 	[SerializeField] CanvasGroup inventoryCanvas;
 	[SerializeField] float changeTime = 0.2f;
+
+	[Header("Refs")][Space]
+	[SerializeField] BattleManager battle;
 
 	RectTransform battleRect;
 	RectTransform inventoryRect;
@@ -25,7 +29,7 @@ public class ScreenManager : MonoBehaviour {
 		inventoryRect.anchoredPosition = screenPosDown;
 	}
 
-	public void ShowBattleScree() {
+	public void ShowBattleScreen() {
 		LeanTween.cancel(gameObject, false);
 		if (lastT == 0)
 			lastT = 0.01f;
@@ -35,6 +39,10 @@ public class ScreenManager : MonoBehaviour {
 				inventoryRect.anchoredPosition = Vector3.Lerp(Vector3.zero, screenPosDown, t);
 				lastT = t;
 			});
+
+		battle.Continue();
+		// if any value in inventory changed
+		// battle.RestartAll();
 	}
 
 	public void ShowInventoryScreen() {
@@ -47,5 +55,7 @@ public class ScreenManager : MonoBehaviour {
 				inventoryRect.anchoredPosition = Vector3.Lerp(screenPosDown, Vector3.zero, t);
 				lastT = t;
 			});
+
+		battle.Pause();
 	}
 }
