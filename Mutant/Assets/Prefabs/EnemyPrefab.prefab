@@ -329,6 +329,7 @@ MonoBehaviour:
   healBarTime: 3
   healthBarImage: {fileID: 8518211073575159034}
   healthBarImageLowAnim: {fileID: 2908640909814609608}
+  healthBarImageBack: {fileID: 3663618821033028093}
 --- !u!114 &8471344004418525199
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,7 +10,8 @@ public class BattleManager : MonoBehaviour {
 	[SerializeField] Monster enemyPrefab;
 	[SerializeField] Transform enemyPos;
 	[Space]
-	[SerializeField] TextMeshProUGUI levelTextField;
+	[SerializeField] TextMeshProUGUI levelTextField1;
+	[SerializeField] TextMeshProUGUI levelTextField2;
 
 	Monster enemyMonster;
 
@@ -59,7 +60,7 @@ public class BattleManager : MonoBehaviour {
 
 	void CreateNewEnemy() {
 		++currLevel;
-		levelTextField.text = currLevel.ToString();
+		levelTextField1.text = levelTextField2.text = currLevel.ToString();
 
 		enemyMonster = Instantiate(enemyPrefab, enemyPos.position, Quaternion.identity, enemyPos);
 		enemyMonster.onDie += OnEnemyDie;
@@ -83,6 +84,8 @@ public class BattleManager : MonoBehaviour {
 		enemyMonster.onDie -= OnEnemyDie;
 		Destroy(enemyMonster.gameObject, 1.5f);
 		enemyMonster = null;
+
+		playerMonster.ResetHealth();
 
 		LeanTween.delayedCall(1.5f, CreateNewEnemy);
 	}

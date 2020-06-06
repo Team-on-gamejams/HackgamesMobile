@@ -19,6 +19,7 @@ public class Monster : MonoBehaviour {
 	[SerializeField] float healBarTime = 0.2f;
 	[SerializeField] Image healthBarImage;
 	[SerializeField] Image healthBarImageLowAnim;
+	[SerializeField] Image healthBarImageBack;
 
 	List<BodyPart> placedParts = new List<BodyPart>();
 	float oneAttackTime = 0.0f;
@@ -28,6 +29,36 @@ public class Monster : MonoBehaviour {
 		Stats = new float[(int)StatType.LAST_STAT];
 
 		onHpChangeEvent += OnHpChange;
+	}
+
+	public void ShowHpBar(float time) {
+		LeanTween.value(gameObject, healthBarImage.color.a, 1.0f, time)
+			.setOnUpdate((float a) => {
+				Color c = healthBarImage.color;
+				c.a = a;
+				healthBarImage.color = c;
+				c = healthBarImageLowAnim.color;
+				c.a = a;
+				healthBarImageLowAnim.color = c;
+				c = healthBarImageBack.color;
+				c.a = a;
+				healthBarImageBack.color = c;
+			});
+	}
+
+	public void HideHpBar(float time) {
+		LeanTween.value(gameObject, healthBarImage.color.a, 0.0f, time)
+			.setOnUpdate((float a) => {
+				Color c = healthBarImage.color;
+				c.a = a;
+				healthBarImage.color = c;
+				c = healthBarImageLowAnim.color;
+				c.a = a;
+				healthBarImageLowAnim.color = c;
+				c = healthBarImageBack.color;
+				c.a = a;
+				healthBarImageBack.color = c;
+			});
 	}
 
 	public void RegenerateHealth() {
@@ -96,6 +127,11 @@ public class Monster : MonoBehaviour {
 		placedParts.Add(GetInstantiatedPart(BodyPartType.Eyes));
 
 		RecalcStats();
+	}
+
+	public void ResetHealth() {
+		currHp = Stats[(int)StatType.Hp];
+		onHpChangeEvent?.Invoke();
 	}
 
 	public void RecalcStats() {

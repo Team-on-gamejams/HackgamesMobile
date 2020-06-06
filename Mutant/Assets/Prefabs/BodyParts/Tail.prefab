@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c980a95598a1ad540b42f6430742ad70, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 533dc04d54944264d93e6e85c41d43fc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,8 +96,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 8
-  connectionParts: 
-  connectionPoints: []
+  gameName: "\u0425\u0432\u0456\u0441\u0442"
+  gameDescription: 
+  cardSprite: {fileID: 21300000, guid: 533dc04d54944264d93e6e85c41d43fc, type: 3}
   stats:
   - type: 0
     value: 15
@@ -113,6 +114,8 @@ MonoBehaviour:
     value: 0
   - type: 6
     value: 0
+  connectionParts: 
+  connectionPoints: []
   rigidbody: {fileID: -5653499890556896389}
   sr: {fileID: 6924271443591000061}
 --- !u!50 &-5653499890556896389
