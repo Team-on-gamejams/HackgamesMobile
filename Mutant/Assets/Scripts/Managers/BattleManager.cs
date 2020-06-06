@@ -15,7 +15,7 @@ public class BattleManager : MonoBehaviour {
 
 	Monster enemyMonster;
 
-	bool isInBattle = false;
+	int isInBattle = 1;
 	int currLevel = 0;
 
 	private void Start() {
@@ -28,7 +28,7 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (isInBattle) {
+		if (isInBattle == 0) {
 			playerMonster.RegenerateHealth();
 
 			if (enemyMonster != null) {
@@ -45,17 +45,17 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	public void Continue() {
-		isInBattle = true;
+		--isInBattle;
 	}
 
 	public void Pause() {
-		isInBattle = false;
+		++isInBattle;
 	}
 
 	public void RestartAll() {
 		playerMonster.RecalcStats();
 		enemyMonster.RecalcStats();
-		isInBattle = true;
+		--isInBattle;
 	}
 
 	void CreateNewEnemy() {
@@ -91,13 +91,13 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	void OnPlayerDie() {
-		isInBattle = false;
+		--isInBattle;
 		enemyMonster.RecalcStats();
 
 		LeanTween.delayedCall(3.0f, () => {
 			playerMonster.RecreateBodyParts();
 			LeanTween.delayedCall(1.1f, () => {
-				isInBattle = true;
+				++isInBattle;
 			});
 		});
 	}

@@ -8,7 +8,6 @@ public class BodyPart : MonoBehaviour {
 	[Header("Card info")][Space]
 	public string gameName;
 	public string gameDescription;
-	public Sprite cardSprite;
 	
 	[Header("Stats")][Space]
 	public StatValue[] stats;
@@ -20,32 +19,49 @@ public class BodyPart : MonoBehaviour {
 
 	[Header("Refs")][Space]
 	[SerializeField] Rigidbody2D rigidbody;
-	[SerializeField] SpriteRenderer sr;
+	[SerializeField] Rigidbody2D rigidbody2;
+	public SpriteRenderer sr;
+	[SerializeField] SpriteRenderer sr2;
 
 	private void Awake() {
 		rigidbody.simulated = false;
+		if(rigidbody2 != null)
+			rigidbody2.simulated = false;
 
 		Color c = sr.color;
 		c.a = 0.0f;
 		sr.color = c;
+		if (sr2 != null)
+			sr2.color = c;
 		LeanTween.value(gameObject, 0.0f, 1.0f, 0.33f)
 			.setOnUpdate((float t) => {
 				c = sr.color;
 				c.a = t;
 				sr.color = c;
+				if(sr2 != null)
+					sr2.color = c;
 			});
 	}
 
 	public void OnDie() {
 		rigidbody.simulated = true;
-
 		rigidbody.AddForce(new Vector2(Random.Range(-500, 500), Random.Range(0, 750)), ForceMode2D.Impulse);
 		rigidbody.AddTorque(Random.Range(-5, 5), ForceMode2D.Impulse);
+
+		if (rigidbody2 != null) {
+			rigidbody2.transform.SetParent(transform.parent);
+			rigidbody2.simulated = true;
+			rigidbody2.AddForce(new Vector2(Random.Range(-500, 500), Random.Range(0, 750)), ForceMode2D.Impulse);
+			rigidbody2.AddTorque(Random.Range(-5, 5), ForceMode2D.Impulse);
+		}
+
 		LeanTween.value(gameObject, 1.0f, 0.0f, 1.5f)
 			.setOnUpdate((float t) => {
 				Color c = sr.color;
 				c.a = t;
 				sr.color = c;
+				if (sr2 != null)
+					sr2.color = c;
 			});
 	}
 }
