@@ -5,22 +5,31 @@ using TMPro;
 
 public class StatWidget : MonoBehaviour {
 	[SerializeField] StatType type;
-	[Header("Refs")][Space]
+	[Header("Refs")] [Space]
 	[SerializeField] TextMeshProUGUI fieldText;
 	[SerializeField] Monster monster;
+	[SerializeField] bool isJustStat = false;
 
 	private void Awake() {
-		if(type == StatType.Hp)
+		if (type == StatType.Hp)
 			monster.onHpChangeEvent += OnHpChange;
 		else
 			monster.onStatsChangeEvent += OnStatChange;
 	}
 
 	void OnStatChange() {
-		fieldText.text = $"{monster.Stats[(int)type]}";
+		if (type == StatType.HpRegen)
+			fieldText.text = $"{monster.Stats[(int)type]}/(sec)";
+		else
+			fieldText.text = $"{monster.Stats[(int)type]}";
+
 	}
 
 	void OnHpChange() {
-		fieldText.text = $"{(int)monster.currHp}/{(int)monster.Stats[(int)type]}\n(+{monster.Stats[(int)StatType.HpRegen].ToString("0.0")}/sec)";
+		if(isJustStat)
+			fieldText.text = $"{(int)monster.Stats[(int)type]}";
+		else
+			fieldText.text = $"{(int)monster.currHp}/{(int)monster.Stats[(int)type]}\n(+{monster.Stats[(int)StatType.HpRegen].ToString("0.0")}/sec)";
+
 	}
 }

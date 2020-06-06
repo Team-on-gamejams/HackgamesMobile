@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class BodyPart : MonoBehaviour {
 	public BodyPartType type;
+
+	[Header("Card info")][Space]
+	public string gameName;
+	public string gameDescription;
+	public Sprite cardSprite;
+	
+	[Header("Stats")][Space]
+	public StatValue[] stats;
+
+	[Header("Connectors")]
 	[Space]
 	public BodyPartType[] connectionParts;
 	public Transform[] connectionPoints;
-	[Space]
-	public StatValue[] stats;
-	[Space]
+
+	[Header("Refs")][Space]
 	[SerializeField] Rigidbody2D rigidbody;
 	[SerializeField] SpriteRenderer sr;
 

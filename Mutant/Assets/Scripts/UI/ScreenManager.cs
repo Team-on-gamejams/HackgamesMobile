@@ -10,6 +10,7 @@ public class ScreenManager : MonoBehaviour {
 
 	[Header("Refs")][Space]
 	[SerializeField] BattleManager battle;
+	[SerializeField] Monster playerMonster;
 
 	RectTransform battleRect;
 	RectTransform inventoryRect;
@@ -33,7 +34,7 @@ public class ScreenManager : MonoBehaviour {
 		LeanTween.cancel(gameObject, false);
 		if (lastT == 0)
 			lastT = 0.01f;
-		LeanTween.value(gameObject, 1 - lastT, 1, changeTime / (lastT))
+		LeanTween.value(gameObject, 1 - lastT, 1, changeTime / lastT)
 			.setOnUpdate((float t) => {
 				battleRect.anchoredPosition = Vector3.Lerp(screenPosUp, Vector3.zero, t);
 				inventoryRect.anchoredPosition = Vector3.Lerp(Vector3.zero, screenPosDown, t);
@@ -41,6 +42,7 @@ public class ScreenManager : MonoBehaviour {
 			});
 
 		battle.Continue();
+		playerMonster.ShowHpBar(changeTime / lastT);
 		// if any value in inventory changed
 		// battle.RestartAll();
 	}
@@ -57,5 +59,6 @@ public class ScreenManager : MonoBehaviour {
 			});
 
 		battle.Pause();
+		playerMonster.HideHpBar(changeTime / lastT);
 	}
 }
