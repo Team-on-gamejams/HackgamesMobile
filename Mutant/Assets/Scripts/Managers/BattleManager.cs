@@ -59,6 +59,8 @@ public class BattleManager : MonoBehaviour {
 	public void RestartAll() {
 		playerMonster.RecalcStats();
 		enemyMonster.RecalcStats();
+		playerMonster.ResetHealth(true);
+		enemyMonster.ResetHealth(true);
 		--isInBattle;
 	}
 

@@ -134,8 +134,14 @@ public class Monster : MonoBehaviour {
 		RecalcStats();
 	}
 
-	public void ResetHealth() {
+	public void ResetHealth(bool isForce = false) {
 		currHp = Stats[(int)StatType.Hp];
+		
+		if (isForce) {
+			healthBarImage.fillAmount = 1.0f;
+			healthBarImageLowAnim.fillAmount = 1.0f;
+		}
+
 		onHpChangeEvent?.Invoke();
 	}
 

@@ -44,10 +44,13 @@ public class ScreenManager : MonoBehaviour {
 				lastT = t;
 			});
 
-		if(inventory.isChangePlayerEquipment)
+		if (inventory.isChangePlayerEquipment) {
 			battle.RestartAll();
-		else
+			inventory.isChangePlayerEquipment = false;
+		}
+		else {
 			battle.Continue();
+		}
 		playerMonster.ShowHpBar(changeTime / lastT);
 	}
 

@@ -46,6 +46,21 @@ public class BodyPart : MonoBehaviour {
 						sr2.color = c;
 				});
 		}
+		else {
+			Color c = sr.color;
+			c.a = 0.5f;
+			sr.color = c;
+			if (sr2 != null)
+				sr2.color = c;
+			LeanTween.value(gameObject, 0.5f, 1.0f, 0.22f)
+				.setOnUpdate((float t) => {
+					c = sr.color;
+					c.a = t;
+					sr.color = c;
+					if (sr2 != null)
+						sr2.color = c;
+				});
+		}
 	}
 
 	public void OnDie() {
