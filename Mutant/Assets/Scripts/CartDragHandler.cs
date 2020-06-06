@@ -7,10 +7,12 @@ public class CartDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IPo
 {
     [SerializeField] private Transform toTopPosition;
     [SerializeField] private Transform toDefaultPosition;
-    [SerializeField] private float useRange = 2f;
+    [SerializeField] private int cooldownTime = 5;
+    
+    private bool onCooldown = false;
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = Input.mousePosition;
+        if(!this.onCooldown)transform.position = Input.mousePosition;
         transform.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
@@ -23,16 +25,33 @@ public class CartDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IPo
     public void OnPointerEnter(PointerEventData eventData)
     {
         toTopPosition.transform.GetComponent<RectTransform>().anchoredPosition = toDefaultPosition.GetComponent<RectTransform>().anchoredPosition;
-        transform.localScale *= 1.2f;
-        transform.GetComponent<RectTransform>().anchoredPosition += new Vector2(0,120f);
+        transform.localScale = Vector3.one;
+        transform.GetComponent<RectTransform>().anchoredPosition += new Vector2(-40f,155f);
         transform.SetParent(toTopPosition);
+
     }
  
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.SetParent(toDefaultPosition);
         transform.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        transform.localScale = Vector3.one;
+        transform.localScale *= 0.7f;
+
     }
+
+    public void StartCooldown()
+    {
+        StartCoroutine(SetCooldown(transform.GetComponent<CanvasGroup>(), this.cooldownTime));
+    }
+
+    IEnumerator SetCooldown(CanvasGroup target, int timeout)
+    {
+        target.alpha = 0.6f;
+        this.onCooldown = true;
+        yield return new WaitForSeconds(timeout);
+        this.onCooldown = false;
+        target.alpha = 1;
+    }
+    
     
 }

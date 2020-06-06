@@ -11,7 +11,8 @@ public class SkillsActivator : MonoBehaviour, IDropHandler
       {
          eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition =
             GetComponent<RectTransform>().anchoredPosition;
-         eventData.pointerDrag.GetComponent<CanvasGroup>().alpha = 0.6F;
+         // eventData.pointerDrag.GetComponent<CanvasGroup>().alpha = 0.6F;
+         eventData.pointerDrag.GetComponent<CartDragHandler>().StartCooldown();
       }
    }
 }
