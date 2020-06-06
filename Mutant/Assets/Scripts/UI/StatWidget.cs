@@ -19,7 +19,7 @@ public class StatWidget : MonoBehaviour {
 
 	void OnStatChange() {
 		if (type == StatType.HpRegen)
-			fieldText.text = $"{monster.Stats[(int)type]}/(sec)";
+			fieldText.text = $"{monster.Stats[(int)type]}";
 		else
 			fieldText.text = $"{monster.Stats[(int)type]}";
 
@@ -29,7 +29,7 @@ public class StatWidget : MonoBehaviour {
 		if(isJustStat)
 			fieldText.text = $"{(int)monster.Stats[(int)type]}";
 		else
-			fieldText.text = $"{(int)monster.currHp}/{(int)monster.Stats[(int)type]}\n(+{monster.Stats[(int)StatType.HpRegen].ToString("0.0")}/sec)";
+			fieldText.text = $"{(int)monster.currHp}/{(int)monster.Stats[(int)type]}";
 
 	}
 }

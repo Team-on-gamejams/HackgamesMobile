@@ -43,6 +43,15 @@ public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 		selectedId = id;
 		buttons[selectedId].interactable = false;
 		tabs[selectedId].gameObject.SetActive(true);
+
+		if (cards[selectedId][selectedCard[selectedId]].part.isEquipedByPlayer) {
+			buttonEquipText.text = equiped;
+			buttonEquip.interactable = false;
+		}
+		else {
+			buttonEquipText.text = equip;
+			buttonEquip.interactable = true;
+		}
 	}
 
 	public void OnBeginDrag(PointerEventData eventData) {

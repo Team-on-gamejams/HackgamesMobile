@@ -11,7 +11,6 @@ public class BattleManager : MonoBehaviour {
 	[SerializeField] Transform enemyPos;
 	[Space]
 	[SerializeField] TextMeshProUGUI levelTextField1;
-	[SerializeField] TextMeshProUGUI levelTextField2;
 
 	Monster enemyMonster;
 
@@ -66,7 +65,7 @@ public class BattleManager : MonoBehaviour {
 
 	void CreateNewEnemy() {
 		++currLevel;
-		levelTextField1.text = levelTextField2.text = currLevel.ToString();
+		levelTextField1.text = currLevel.ToString();
 
 		enemyMonster = Instantiate(enemyPrefab, enemyPos.position, Quaternion.identity, enemyPos);
 		enemyMonster.onDie += OnEnemyDie;
