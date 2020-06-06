@@ -25,7 +25,7 @@ MonoBehaviour:
       isVirtualRealitySupported: 0
       needZip: 0
       compressDirPath: $NAME_$VERSION_TESTWIN
-      needItchPush: 1
+      needItchPush: 0
       itchChannel: windows-32-test
       itchDirPath: $NAME_$VERSION_TESTWIN
       itchAddLastChangelogUpdateNameToVerison: 1
