@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2682538606405504157}
   - component: {fileID: 2682538606405504099}
   - component: {fileID: 2682538606405504156}
+  - component: {fileID: -5954593720426249648}
   m_Layer: 0
   m_Name: Fur
   m_TagString: Untagged
@@ -112,3 +113,26 @@ MonoBehaviour:
     value: 0
   - type: 6
     value: 0
+  rigidbody: {fileID: -5954593720426249648}
+  sr: {fileID: 2682538606405504099}
+--- !u!50 &-5954593720426249648
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2682538606405504158}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 60
+  m_LinearDrag: 1
+  m_AngularDrag: 1
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

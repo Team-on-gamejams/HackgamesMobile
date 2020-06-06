@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6924271443591000063}
   - component: {fileID: 6924271443591000061}
   - component: {fileID: 6924271443591000060}
+  - component: {fileID: -5653499890556896389}
   m_Layer: 0
   m_Name: Tail
   m_TagString: Untagged
@@ -112,3 +113,26 @@ MonoBehaviour:
     value: 0
   - type: 6
     value: 0
+  rigidbody: {fileID: -5653499890556896389}
+  sr: {fileID: 6924271443591000061}
+--- !u!50 &-5653499890556896389
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6924271443591000062}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 60
+  m_LinearDrag: 1
+  m_AngularDrag: 1
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

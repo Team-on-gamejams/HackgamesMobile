@@ -29,12 +29,17 @@ public class BattleManager : MonoBehaviour {
 	private void Update() {
 		if (isInBattle) {
 			playerMonster.RegenerateHealth();
-			while (playerMonster.IsCanDoDamage())
-				enemyMonster.TakeDamage(playerMonster.DoDamage());
 
-			enemyMonster.RegenerateHealth();
-			while (enemyMonster.IsCanDoDamage())
-				playerMonster.TakeDamage(enemyMonster.DoDamage());
+			if (enemyMonster != null) {
+				while (playerMonster.IsCanDoDamage())
+					enemyMonster.TakeDamage(playerMonster.DoDamage());
+
+				if (enemyMonster != null) {
+					enemyMonster.RegenerateHealth();
+					while (enemyMonster.IsCanDoDamage())
+						playerMonster.TakeDamage(enemyMonster.DoDamage());
+				}
+			}
 		}
 	}
 
@@ -76,12 +81,19 @@ public class BattleManager : MonoBehaviour {
 
 	void OnEnemyDie() {
 		enemyMonster.onDie -= OnEnemyDie;
+		Destroy(enemyMonster.gameObject, 1.5f);
 		enemyMonster = null;
 
-		CreateNewEnemy();
+		LeanTween.delayedCall(1.5f, CreateNewEnemy);
 	}
 
 	void OnPlayerDie() {
-		//TODO: respawn player
+		isInBattle = false;
+		enemyMonster.RecalcStats();
+
+		LeanTween.delayedCall(3.0f, () => {
+			//isInBattle = true;
+			//TODO: respawn player
+		});
 	}
 }

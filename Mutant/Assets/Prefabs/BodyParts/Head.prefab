@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 7725923630866626781}
   - component: {fileID: 7725923630866626780}
   - component: {fileID: 7725923630866626783}
+  - component: {fileID: -3130219330286713127}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -148,6 +149,29 @@ MonoBehaviour:
     value: 0
   - type: 6
     value: 0
+  rigidbody: {fileID: -3130219330286713127}
+  sr: {fileID: 7725923630866626780}
+--- !u!50 &-3130219330286713127
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7725923630866626778}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 60
+  m_LinearDrag: 1
+  m_AngularDrag: 1
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7725923631062330828
 GameObject:
   m_ObjectHideFlags: 0

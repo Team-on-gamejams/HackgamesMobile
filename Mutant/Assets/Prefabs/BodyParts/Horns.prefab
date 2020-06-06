@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1047671715729693575}
   - component: {fileID: 1047671715729693574}
   - component: {fileID: 1047671715729693573}
+  - component: {fileID: -901953507752462369}
   m_Layer: 0
   m_Name: Horns
   m_TagString: Untagged
@@ -112,3 +113,26 @@ MonoBehaviour:
     value: 0
   - type: 6
     value: 0
+  rigidbody: {fileID: -901953507752462369}
+  sr: {fileID: 1047671715729693574}
+--- !u!50 &-901953507752462369
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047671715729693568}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 60
+  m_LinearDrag: 1
+  m_AngularDrag: 1
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

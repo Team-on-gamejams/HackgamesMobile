@@ -39,6 +39,9 @@ public class Monster : MonoBehaviour {
 	}
 
 	public bool IsCanDoDamage() {
+		if (currHp == 0)
+			return false;
+
 		currAttackTimer += Time.deltaTime;
 
 		return currAttackTimer >= oneAttackTime;
@@ -66,6 +69,8 @@ public class Monster : MonoBehaviour {
 		currHp -= damage;
 		if (currHp <= 0) {
 			currHp = 0;
+			foreach (var part in placedParts)
+				part.OnDie();
 			onDie?.Invoke();
 		}
 
@@ -137,12 +142,25 @@ public class Monster : MonoBehaviour {
 	}
 
 	void OnHpChange() {
-		healthBarImage.fillAmount = currHp / Stats[(int)StatType.Hp];
+		if(currHp / Stats[(int)StatType.Hp] >= healthBarImage.fillAmount) {
+			LeanTween.cancel(healthBarImage.gameObject, false);
 
-		LeanTween.cancel(healthBarImageLowAnim.gameObject, false);
-		LeanTween.value(healthBarImageLowAnim.gameObject, healthBarImageLowAnim.fillAmount, healthBarImage.fillAmount, 0.2f)
-		.setOnUpdate((float val)=> {
-			healthBarImageLowAnim.fillAmount = val;
-		});
+			LeanTween.value(healthBarImage.gameObject, healthBarImage.fillAmount, currHp / Stats[(int)StatType.Hp], 3.0f)
+			.setOnUpdate((float val) => {
+				healthBarImage.fillAmount = val;
+			});
+		}
+		else {
+			LeanTween.cancel(healthBarImageLowAnim.gameObject, false);
+			LeanTween.cancel(healthBarImage.gameObject, false);
+
+			healthBarImage.fillAmount = currHp / Stats[(int)StatType.Hp];
+
+
+			LeanTween.value(healthBarImageLowAnim.gameObject, healthBarImageLowAnim.fillAmount, healthBarImage.fillAmount, 0.2f)
+			.setOnUpdate((float val) => {
+				healthBarImageLowAnim.fillAmount = val;
+			});
+		}
 	}
 }

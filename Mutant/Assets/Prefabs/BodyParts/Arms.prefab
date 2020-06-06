@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2419723081901089437}
   - component: {fileID: 2419723081901089439}
   - component: {fileID: 2419723081901089438}
+  - component: {fileID: -4409455594614957435}
   m_Layer: 0
   m_Name: Arms
   m_TagString: Untagged
@@ -112,3 +113,26 @@ MonoBehaviour:
     value: 0
   - type: 6
     value: 0
+  rigidbody: {fileID: -4409455594614957435}
+  sr: {fileID: 2419723081901089439}
+--- !u!50 &-4409455594614957435
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2419723081901089436}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 60
+  m_LinearDrag: 1
+  m_AngularDrag: 1
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
