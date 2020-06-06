@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Monster : MonoBehaviour {
 	public Action onStatsChangeEvent;
@@ -13,6 +14,10 @@ public class Monster : MonoBehaviour {
 
 	[SerializeField] bool IsPlayer;
 	public List<BodyPart> usedBodyParts;
+	
+	[Header("UI")] [Space]
+	[SerializeField] Image healthBarImage;
+	[SerializeField] Image healthBarImageLowAnim;
 
 	List<BodyPart> placedParts = new List<BodyPart>();
 	float oneAttackTime = 0.0f;
@@ -20,6 +25,8 @@ public class Monster : MonoBehaviour {
 
 	private void Awake() {
 		Stats = new float[(int)StatType.LAST_STAT];
+
+		onHpChangeEvent += OnHpChange;
 	}
 
 	public void RegenerateHealth() {
@@ -27,7 +34,7 @@ public class Monster : MonoBehaviour {
 			currHp += Stats[(int)StatType.HpRegen] * Time.deltaTime;
 			if (currHp > Stats[(int)StatType.Hp])
 				currHp = Stats[(int)StatType.Hp];
-		onHpChangeEvent?.Invoke();
+			onHpChangeEvent?.Invoke();
 		}
 	}
 
@@ -57,10 +64,12 @@ public class Monster : MonoBehaviour {
 			damage = 1;
 
 		currHp -= damage;
-		if(currHp <= 0) {
+		if (currHp <= 0) {
 			currHp = 0;
 			onDie?.Invoke();
 		}
+
+		onHpChangeEvent?.Invoke();
 	}
 
 	public void RecreateBodyParts() {
@@ -125,5 +134,15 @@ public class Monster : MonoBehaviour {
 		}
 
 		return null;
+	}
+
+	void OnHpChange() {
+		healthBarImage.fillAmount = currHp / Stats[(int)StatType.Hp];
+
+		LeanTween.cancel(healthBarImageLowAnim.gameObject, false);
+		LeanTween.value(healthBarImageLowAnim.gameObject, healthBarImageLowAnim.fillAmount, healthBarImage.fillAmount, 0.2f)
+		.setOnUpdate((float val)=> {
+			healthBarImageLowAnim.fillAmount = val;
+		});
 	}
 }
