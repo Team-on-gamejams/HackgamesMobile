@@ -8,7 +8,8 @@ public class CartDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IPo
     [SerializeField] private Transform toTopPosition;
     [SerializeField] private Transform toDefaultPosition;
     [SerializeField] private int cooldownTime = 5;
-    
+
+    public float damage = 200;
     private bool onCooldown = false;
     public void OnDrag(PointerEventData eventData)
     {
