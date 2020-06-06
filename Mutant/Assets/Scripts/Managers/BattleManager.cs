@@ -82,7 +82,6 @@ public class BattleManager : MonoBehaviour {
 		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Eyes));
 		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Horns));
 		enemyMonster.RecreateBodyParts();
-
 	}
 
 	void OnEnemyDie() {

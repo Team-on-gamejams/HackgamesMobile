@@ -936,12 +936,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.511, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: afce83f863e31494781f3972d2734761, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4288b67adf601e947a9fb7334d8487c7, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4281,7 +4281,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.21176471, g: 0.21176471, b: 0.21176471, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -6544,7 +6544,6 @@ MonoBehaviour:
     type: 3}
   enemyPos: {fileID: 602342138}
   levelTextField1: {fileID: 982579784}
-  levelTextField2: {fileID: 0}
 --- !u!114 &853099548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7989,12 +7988,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: afce83f863e31494781f3972d2734761, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 75f0044adda165c41ac1aaea215918d2, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11058,12 +11057,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: afce83f863e31494781f3972d2734761, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c78e7c3e3174ff14f82d63c3c920db33, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
