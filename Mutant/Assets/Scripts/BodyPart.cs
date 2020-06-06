@@ -24,7 +24,8 @@ public class BodyPart : MonoBehaviour {
 	[SerializeField] SpriteRenderer sr2;
 
 	private void Awake() {
-		rigidbody.simulated = false;
+		if(rigidbody != null)
+			rigidbody.simulated = false;
 		if(rigidbody2 != null)
 			rigidbody2.simulated = false;
 
@@ -44,9 +45,11 @@ public class BodyPart : MonoBehaviour {
 	}
 
 	public void OnDie() {
-		rigidbody.simulated = true;
-		rigidbody.AddForce(new Vector2(Random.Range(-500, 500), Random.Range(0, 750)), ForceMode2D.Impulse);
-		rigidbody.AddTorque(Random.Range(-5, 5), ForceMode2D.Impulse);
+		if(rigidbody != null) {
+			rigidbody.simulated = true;
+			rigidbody.AddForce(new Vector2(Random.Range(-500, 500), Random.Range(0, 750)), ForceMode2D.Impulse);
+			rigidbody.AddTorque(Random.Range(-5, 5), ForceMode2D.Impulse);
+		}
 
 		if (rigidbody2 != null) {
 			rigidbody2.transform.SetParent(transform.parent);

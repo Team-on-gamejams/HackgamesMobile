@@ -32,8 +32,11 @@ public class BattleManager : MonoBehaviour {
 			playerMonster.RegenerateHealth();
 
 			if (enemyMonster != null) {
-				while (playerMonster.IsCanDoDamage())
-					enemyMonster.TakeDamage(playerMonster.DoDamage());
+				while (playerMonster.IsCanDoDamage()) {
+					float dmg = playerMonster.DoDamage();
+					if(enemyMonster != null)
+						enemyMonster.TakeDamage(dmg);
+				}
 
 				if (enemyMonster != null) {
 					enemyMonster.RegenerateHealth();
