@@ -19,6 +19,7 @@ public class Inventory : MonoBehaviour {
 		buttons[selectedId].interactable = false;
 
 		selectedCard = new int[tabs.Length];
+		float lastX = cardsCenter.position.x;
 
 		for (int i = 0; i < tabs.Length; ++i) {
 			tabs[i].gameObject.SetActive(i == selectedId);
@@ -34,8 +35,9 @@ public class Inventory : MonoBehaviour {
 				BodyPartCard card = Instantiate(partCardPrefab, cardsCenter.position, Quaternion.identity, tabs[i].transform).GetComponent<BodyPartCard>();
 				card.Init(parts[j]);
 
-				card.transform.position = cardsCenter.position;
 				card.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.one * 0.33f, Mathf.Abs(selectedCard[i] - j) / 2.0f);
+				card.transform.position = new Vector3(lastX, cardsCenter.position.y);
+				lastX -= card.rectTransform.sizeDelta.x * card.rectTransform.lossyScale.x;
 			}
 		}
 	}

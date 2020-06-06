@@ -23,9 +23,11 @@ public class ScreenManager : MonoBehaviour {
 	private void Awake() {
 		battleRect = battleCanvas.GetComponent<RectTransform>();
 		inventoryRect = inventoryCanvas.GetComponent<RectTransform>();
+	}
 
-		screenPosUp = GameManager.Instance.Camera.ViewportToScreenPoint(new Vector3(0, 1.0f, 0));
-		screenPosDown = GameManager.Instance.Camera.ViewportToScreenPoint(new Vector3(0, -1.0f, 0));
+	private void Start() {
+		screenPosUp = Vector2.up * Screen.currentResolution.height;
+		screenPosDown = Vector2.down * Screen.currentResolution.height;
 
 		battleRect.anchoredPosition = Vector2.zero;
 		inventoryRect.anchoredPosition = screenPosDown;

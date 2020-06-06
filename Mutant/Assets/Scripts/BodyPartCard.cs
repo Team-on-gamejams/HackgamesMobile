@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 
 public class BodyPartCard : MonoBehaviour {
+	public RectTransform rectTransform;
+
 	[SerializeField] Image image;
 	[SerializeField] TextMeshProUGUI nameField;
 	[SerializeField] TextMeshProUGUI descField;
