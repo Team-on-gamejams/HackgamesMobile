@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2682538606405504157}
   - component: {fileID: 2682538606405504099}
   - component: {fileID: 2682538606405504156}
+  - component: {fileID: 2291130304150122282}
   m_Layer: 0
   m_Name: Fur 1
   m_TagString: Untagged
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 4a68ae34caea05649b68bbf9dcf8c2db, type: 3}
-  m_Color: {r: 0.12519169, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.7666667, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -118,3 +119,15 @@ MonoBehaviour:
   rigidbody2: {fileID: 0}
   sr: {fileID: 2682538606405504099}
   sr2: {fileID: 0}
+--- !u!114 &2291130304150122282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2682538606405504158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4208df34f00e84347b65600ffa9b637c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -3760,10 +3760,10 @@ RectTransform:
   m_Father: {fileID: 420080474}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -60, y: -386}
-  m_SizeDelta: {x: 150.67, y: 79.85}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -60, y: 91}
+  m_SizeDelta: {x: 150.67, y: 79.850006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &522903049
 MonoBehaviour:
@@ -6132,7 +6132,16 @@ MonoBehaviour:
     - {fileID: 7097864195933710037, guid: 9d48a1650a99a224e96f054b53894868, type: 3}
     - {fileID: 7097864195933710037, guid: b323e08f26021664cbdd7d8c0c9b3897, type: 3}
     - {fileID: 7097864195933710037, guid: 9499d1a00f2f127448075e4224603e91, type: 3}
-    isOwnedByPlayer: 010101
+    - {fileID: 7097864195933710037, guid: 9d48a1650a99a224e96f054b53894868, type: 3}
+    - {fileID: 7097864195933710037, guid: b323e08f26021664cbdd7d8c0c9b3897, type: 3}
+    - {fileID: 7097864195933710037, guid: 9499d1a00f2f127448075e4224603e91, type: 3}
+    - {fileID: 7097864195933710037, guid: 9d48a1650a99a224e96f054b53894868, type: 3}
+    - {fileID: 7097864195933710037, guid: b323e08f26021664cbdd7d8c0c9b3897, type: 3}
+    - {fileID: 7097864195933710037, guid: 9499d1a00f2f127448075e4224603e91, type: 3}
+    - {fileID: 7097864195933710037, guid: 9d48a1650a99a224e96f054b53894868, type: 3}
+    - {fileID: 7097864195933710037, guid: b323e08f26021664cbdd7d8c0c9b3897, type: 3}
+    - {fileID: 7097864195933710037, guid: 9499d1a00f2f127448075e4224603e91, type: 3}
+    isOwnedByPlayer: 010101010101010101010101
     playerLevel: 
   - type: 1
     parts:
@@ -6868,6 +6877,7 @@ GameObject:
   - component: {fileID: 948566091}
   - component: {fileID: 948566092}
   - component: {fileID: 948566093}
+  - component: {fileID: 948566094}
   m_Layer: 5
   m_Name: InventoryCanvas
   m_TagString: Untagged
@@ -6952,6 +6962,32 @@ MonoBehaviour:
   partCardPrefab: {fileID: 1564664045806091902, guid: 991fe98704e36d648b27d5e15ffeec6a,
     type: 3}
   cardsCenter: {fileID: 22515255}
+--- !u!61 &948566094
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948566090}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 397.46988, y: -15.958557}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1123.866, y: 570.1422}
+  m_EdgeRadius: 0
 --- !u!1 &960912991
 GameObject:
   m_ObjectHideFlags: 0
@@ -8429,7 +8465,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.6999512, y: 0}
+  m_AnchoredPosition: {x: 3.7001953, y: 0}
   m_SizeDelta: {x: -7.4, y: 86.7}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1312281569
@@ -8719,10 +8755,10 @@ RectTransform:
   m_Father: {fileID: 420080474}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 266, y: -380}
-  m_SizeDelta: {x: 150.67, y: 79.85}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 266, y: 97}
+  m_SizeDelta: {x: 150.67, y: 79.850006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1394895773
 MonoBehaviour:
