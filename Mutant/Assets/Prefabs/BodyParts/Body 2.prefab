@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 7097864195933710037}
   - component: {fileID: 414672063511572707}
   m_Layer: 0
-  m_Name: Body
+  m_Name: Body 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,7 +228,7 @@ MonoBehaviour:
   cardSprite: {fileID: 21300000, guid: 9ad97b551d8928f4fac521ab1ae77e17, type: 3}
   stats:
   - type: 0
-    value: 100
+    value: 20
   - type: 1
     value: 1
   - type: 2

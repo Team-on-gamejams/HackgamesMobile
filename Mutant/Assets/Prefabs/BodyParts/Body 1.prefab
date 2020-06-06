@@ -177,7 +177,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -222,9 +222,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  gameName: 
-  gameDescription: 
-  cardSprite: {fileID: 0}
+  gameName: "\u0422\u0456\u043B\u043E"
+  gameDescription: "\u041E\u0441\u043D\u043E\u0432\u043D\u0430 \u0447\u0430\u0441\u0442\u0438\u043D\u0430
+    \u043C\u0443\u0442\u0430\u043D\u0442\u0430"
+  cardSprite: {fileID: 21300000, guid: 9ad97b551d8928f4fac521ab1ae77e17, type: 3}
   stats:
   - type: 0
     value: 10
@@ -235,7 +236,7 @@ MonoBehaviour:
   - type: 3
     value: 20
   - type: 4
-    value: 1
+    value: 2
   - type: 5
     value: 15
   - type: 6

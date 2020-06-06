@@ -11,6 +11,7 @@ public class ScreenManager : MonoBehaviour {
 	[Header("Refs")][Space]
 	[SerializeField] BattleManager battle;
 	[SerializeField] Monster playerMonster;
+	[SerializeField] Inventory inventory;
 
 	RectTransform battleRect;
 	RectTransform inventoryRect;

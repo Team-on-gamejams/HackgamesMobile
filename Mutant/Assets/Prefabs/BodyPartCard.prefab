@@ -663,7 +663,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 66305a19e3614694f868c75a982e6b68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e1e33bf96266a5d4280bd39dca4f97a4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1056,7 +1056,7 @@ GameObject:
   - component: {fileID: 1564664045486223911}
   - component: {fileID: 1564664045486223910}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1417,7 +1417,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 350, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1564664045806091896
 MonoBehaviour:
@@ -1431,6 +1431,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ec485fbf45c6f4abf23e0549a78faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 1564664044840142766}
+  nameField: {fileID: 134619189}
+  descField: {fileID: 1564664044951528362}
+  level: {fileID: 1564664045486223910}
+  hpField: {fileID: 1564664044536308161}
+  armorField: {fileID: 1564664045529421080}
+  attackField: {fileID: 1564664044629076526}
+  attackRateField: {fileID: 1564664044347301483}
 --- !u!1 &1564664045861452545
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,7 +1620,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 66305a19e3614694f868c75a982e6b68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ff276f4fadbd2494ca2c3d2580eb56cc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1685,7 +1693,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 66305a19e3614694f868c75a982e6b68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fc1c9cd1ee4f0384e931bd2022169514, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1758,7 +1766,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 66305a19e3614694f868c75a982e6b68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b86f8f5c6b093e047afb4c2b0210f3be, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
