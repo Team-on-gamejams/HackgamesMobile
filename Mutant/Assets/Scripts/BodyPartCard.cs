@@ -16,7 +16,7 @@ public class BodyPartCard : MonoBehaviour {
 	[SerializeField] TextMeshProUGUI attackRateField;
 
 	public void Init(BodyPart part) {
-		image.sprite = part.cardSprite;
+		image.sprite = part.sr.sprite;
 
 		nameField.text = part.gameName;
 		descField.text = part.gameDescription;

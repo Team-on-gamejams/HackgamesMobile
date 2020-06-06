@@ -70,6 +70,10 @@ public class Monster : MonoBehaviour {
 		}
 	}
 
+	public void InstaCheatAttack() {
+		currAttackTimer += oneAttackTime;
+	}
+
 	public bool IsCanDoDamage() {
 		if (currHp == 0)
 			return false;
@@ -171,7 +175,9 @@ public class Monster : MonoBehaviour {
 						break;
 				}
 
-				return Instantiate(partPrefab, pos, Quaternion.identity, parent).GetComponent<BodyPart>();
+				BodyPart part = Instantiate(partPrefab, pos, Quaternion.identity, parent).GetComponent<BodyPart>();
+				part.transform.localEulerAngles = Vector3.zero;
+				return part;
 			}
 		}
 

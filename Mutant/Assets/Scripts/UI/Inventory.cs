@@ -12,10 +12,14 @@ public class Inventory : MonoBehaviour {
 	[SerializeField] GameObject partCardPrefab;
 
 	int selectedId = 0;
+	int[] selectedCard;
 
 	private void Awake() {
 		buttons[selectedId].interactable = false;
-		for(int i = 0; i < tabs.Length; ++i) {
+
+		selectedCard = new int[tabs.Length];
+
+		for (int i = 0; i < tabs.Length; ++i) {
 			tabs[i].gameObject.SetActive(i == selectedId);
 
 			Transform[] childs = tabs[i].GetComponentsInChildren<Transform>();
@@ -27,9 +31,10 @@ public class Inventory : MonoBehaviour {
 			BodyPart[] parts = partsManager.GetAllOwnedByPlayer((BodyPartType)i);
 			for(int j = parts.Length - 1; j >= 0; --j) {
 				BodyPartCard card = Instantiate(partCardPrefab, tabs[i].position, Quaternion.identity, tabs[i].transform).GetComponent<BodyPartCard>();
-				card.transform.localScale = Vector3.Lerp(Vector3.one , Vector3.one * 0.33f, (float)(j) / parts.Length);
-				card.transform.localPosition += Vector3.right * ((j - parts.Length / 2) * 250 + 150); 
 				card.Init(parts[j]);
+
+				card.transform.position = tabs[i].position;
+				card.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.one * 0.33f, Mathf.Abs(selectedCard[i] - j) / 2.0f);
 			}
 		}
 	}
