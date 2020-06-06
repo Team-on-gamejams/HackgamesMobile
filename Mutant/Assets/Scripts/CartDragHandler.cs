@@ -8,15 +8,15 @@ public class CartDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IPo
     [SerializeField] private Transform toTopPosition;
     [SerializeField] private Transform toDefaultPosition;
     [SerializeField] private float useRange = 2f;
-    [SerializeField] private Vector2 EmemyPosition;
-    [SerializeField] private Vector2 MonsterPosition;
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = Input.mousePosition;
+        transform.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        transform.GetComponent<CanvasGroup>().blocksRaycasts = true;
         transform.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
     }
 
