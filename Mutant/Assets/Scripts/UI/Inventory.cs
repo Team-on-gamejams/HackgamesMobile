@@ -1,17 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler {
+	const string equip = "Екіпірувати";
+	const string equiped = "Екіпіровано";
+
 	[SerializeField] Button[] buttons;
 	[SerializeField] RectTransform[] tabs;
 
 	[Header("Refs")] [Space]
 	[SerializeField] PartsManager partsManager;
+	[SerializeField] Monster playerMonster;
 	[SerializeField] GameObject partCardPrefab;
 	[SerializeField] Transform cardsCenter;
+	[SerializeField] CanvasGroup bottomBar;
+	[SerializeField] Button buttonEquip;
+	[SerializeField] TMPro.TextMeshProUGUI buttonEquipText;
 
 	int selectedId = 0;
 	int[] selectedCard;
@@ -20,12 +28,96 @@ public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 	float currDrag = 0.0f;
 
 	List<List<BodyPartCard>> cards = new List<List<BodyPartCard>>();
+	public bool isChangePlayerEquipment = false;
 
 	private void Awake() {
 		buttons[selectedId].interactable = false;
-
 		selectedCard = new int[tabs.Length];
 
+		partsManager.OnNewPlayerPartsAvaliable += RecreateCards;
+	}
+
+	public void OpenTab(int id) {
+		buttons[selectedId].interactable = true;
+		tabs[selectedId].gameObject.SetActive(false);
+		selectedId = id;
+		buttons[selectedId].interactable = false;
+		tabs[selectedId].gameObject.SetActive(true);
+	}
+
+	public void OnBeginDrag(PointerEventData eventData) {
+		LeanTween.cancel(gameObject);
+		bottomBar.blocksRaycasts = false;
+		bottomBar.interactable = false;
+	}
+
+	public void OnEndDrag(PointerEventData eventData) {
+		LeanTween.value(gameObject, currDrag, 0, Mathf.Abs(currDrag) / cardWidth / 3.0f)
+			.setOnUpdate((float drag)=> {
+				currDrag = drag;
+				MoveCards(selectedId);
+			})
+			.setOnComplete(()=>{
+				bottomBar.blocksRaycasts = true;
+				bottomBar.interactable = true;
+			});
+
+		LeanTween.value(gameObject, 0, 1, Mathf.Abs(currDrag) / cardWidth / 3.0f)
+			.setOnUpdate((float t) => {
+				bottomBar.alpha = Mathf.Lerp(0, 1, t);
+			})
+			.setOnComplete(() => {
+				bottomBar.blocksRaycasts = true;
+				bottomBar.interactable = true;
+			});
+	}
+
+	public void OnDrag(PointerEventData eventData) {
+		currDrag += eventData.delta.x;
+		if(bottomBar.alpha > 0.2f) {
+			bottomBar.alpha -= currDrag / cardWidth / 4;
+			if (bottomBar.alpha < 0.2f)
+				bottomBar.alpha = 0.2f;
+		}
+
+		if (currDrag >= cardWidth / 2 && selectedCard[selectedId] != cards[selectedId].Count - 1) {
+			currDrag -= cardWidth;
+			selectedCard[selectedId]++;
+		}
+		else if (currDrag <= -cardWidth / 2 && selectedCard[selectedId] != 0) {
+			currDrag += cardWidth;
+			selectedCard[selectedId]--;
+		}
+
+		if(selectedCard[selectedId] == 0)
+			currDrag = Mathf.Clamp(currDrag, -cardWidth / 4, cardWidth);
+		else if(selectedCard[selectedId] == cards[selectedId].Count - 1)
+			currDrag = Mathf.Clamp(currDrag, -cardWidth, cardWidth / 4);
+		MoveCards(selectedId);
+	}
+
+	public void OnEquipClick() {
+		BodyPart part = cards[selectedId][selectedCard[selectedId]].part;
+		BodyPart curr = partsManager.GetUsedByPlayer(part.type);
+
+		playerMonster.usedBodyParts.Remove(curr);
+		curr.isEquipedByPlayer = false;
+		
+		playerMonster.usedBodyParts.Add(part);
+		part.isEquipedByPlayer = true;
+
+		isChangePlayerEquipment = true;
+		playerMonster.RecreateBodyParts(true);
+
+		buttonEquipText.text = equiped;
+		buttonEquip.interactable = false;
+	}
+
+	public void OnUpgradeClick() {
+
+	}
+
+	void RecreateCards() {
 		cards.Clear();
 		for (int i = 0; i < tabs.Length; ++i) {
 			cards.Add(new List<BodyPartCard>());
@@ -33,7 +125,7 @@ public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 
 			Transform[] childs = tabs[i].GetComponentsInChildren<Transform>();
 			foreach (var child in childs) {
-				if(child != tabs[i].transform)
+				if (child != tabs[i].transform)
 					Destroy(child.gameObject);
 			}
 
@@ -53,45 +145,6 @@ public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 
 			MoveCards(i);
 		}
-	}
-
-	public void OpenTab(int id) {
-		buttons[selectedId].interactable = true;
-		tabs[selectedId].gameObject.SetActive(false);
-		selectedId = id;
-		buttons[selectedId].interactable = false;
-		tabs[selectedId].gameObject.SetActive(true);
-	}
-
-	public void OnBeginDrag(PointerEventData eventData) {
-		LeanTween.cancel(gameObject);
-	}
-
-	public void OnEndDrag(PointerEventData eventData) {
-		LeanTween.value(gameObject, currDrag, 0, Mathf.Abs(currDrag) / cardWidth / 3.0f)
-			.setOnUpdate((float drag)=> {
-				currDrag = drag;
-				MoveCards(selectedId);
-			});
-	}
-
-	public void OnDrag(PointerEventData eventData) {
-		currDrag += eventData.delta.x;
-
-		if(currDrag >= cardWidth / 2 && selectedCard[selectedId] != cards[selectedId].Count - 1) {
-			currDrag -= cardWidth;
-			selectedCard[selectedId]++;
-		}
-		else if (currDrag <= -cardWidth / 2 && selectedCard[selectedId] != 0) {
-			currDrag += cardWidth;
-			selectedCard[selectedId]--;
-		}
-
-		if(selectedCard[selectedId] == 0)
-			currDrag = Mathf.Clamp(currDrag, -cardWidth / 4, cardWidth);
-		else if(selectedCard[selectedId] == cards[selectedId].Count - 1)
-			currDrag = Mathf.Clamp(currDrag, -cardWidth, cardWidth / 4);
-		MoveCards(selectedId);
 	}
 
 	void MoveCards(int selectedId) {
@@ -114,5 +167,13 @@ public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 		}
 
 		cards[selectedId][selectedCard[selectedId]].transform.SetAsLastSibling();
+		if (cards[selectedId][selectedCard[selectedId]].part.isEquipedByPlayer) {
+			buttonEquipText.text = equiped;
+			buttonEquip.interactable = false;
+		}
+		else {
+			buttonEquipText.text = equip;
+			buttonEquip.interactable = true;
+		}
 	}
 }

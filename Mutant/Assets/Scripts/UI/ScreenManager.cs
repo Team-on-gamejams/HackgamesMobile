@@ -44,10 +44,11 @@ public class ScreenManager : MonoBehaviour {
 				lastT = t;
 			});
 
-		battle.Continue();
+		if(inventory.isChangePlayerEquipment)
+			battle.RestartAll();
+		else
+			battle.Continue();
 		playerMonster.ShowHpBar(changeTime / lastT);
-		// if any value in inventory changed
-		// battle.RestartAll();
 	}
 
 	public void ShowInventoryScreen() {

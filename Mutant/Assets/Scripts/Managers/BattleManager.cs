@@ -19,6 +19,7 @@ public class BattleManager : MonoBehaviour {
 	int currLevel = 0;
 
 	private void Start() {
+		partsManager.InitStartPlayerParts(playerMonster);
 		playerMonster.onDie += OnPlayerDie;
 		playerMonster.RecreateBodyParts();
 

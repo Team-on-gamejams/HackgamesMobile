@@ -231,7 +231,6 @@ MonoBehaviour:
   gameName: "\u0422\u0456\u043B\u043E"
   gameDescription: "\u041E\u0441\u043D\u043E\u0432\u043D\u0430 \u0447\u0430\u0441\u0442\u0438\u043D\u0430
     \u043C\u0443\u0442\u0430\u043D\u0442\u0430"
-  cardSprite: {fileID: 21300000, guid: 9ad97b551d8928f4fac521ab1ae77e17, type: 3}
   stats:
   - type: 0
     value: 100
@@ -256,7 +255,9 @@ MonoBehaviour:
   - {fileID: 7097864194772262326}
   - {fileID: 7097864196076888054}
   rigidbody: {fileID: 414672063511572707}
+  rigidbody2: {fileID: 0}
   sr: {fileID: 7097864195933710038}
+  sr2: {fileID: 0}
 --- !u!50 &414672063511572707
 Rigidbody2D:
   serializedVersion: 4
@@ -318,7 +319,7 @@ SpriteMask:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e2e963f033514a54694f57e798baeeb9, type: 3}
-  m_MaskAlphaCutoff: 0.2
+  m_MaskAlphaCutoff: 0.55
   m_FrontSortingLayerID: 0
   m_BackSortingLayerID: 0
   m_FrontSortingLayer: 0
@@ -381,7 +382,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7097864196076888055}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.65, y: -0.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4300859069203010764}

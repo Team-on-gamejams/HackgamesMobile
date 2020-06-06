@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BodyPart : MonoBehaviour {
 	public BodyPartType type;
+	[System.NonSerialized] public bool isEquipedByPlayer;
+	[System.NonSerialized] public bool isForce = false;
 
 	[Header("Card info")][Space]
 	public string gameName;
@@ -23,25 +25,27 @@ public class BodyPart : MonoBehaviour {
 	public SpriteRenderer sr;
 	[SerializeField] SpriteRenderer sr2;
 
-	private void Awake() {
+	private void Start() {
 		if(rigidbody != null)
 			rigidbody.simulated = false;
 		if(rigidbody2 != null)
 			rigidbody2.simulated = false;
 
-		Color c = sr.color;
-		c.a = 0.0f;
-		sr.color = c;
-		if (sr2 != null)
-			sr2.color = c;
-		LeanTween.value(gameObject, 0.0f, 1.0f, 0.33f)
-			.setOnUpdate((float t) => {
-				c = sr.color;
-				c.a = t;
-				sr.color = c;
-				if(sr2 != null)
-					sr2.color = c;
-			});
+		if (!isForce) {
+			Color c = sr.color;
+			c.a = 0.0f;
+			sr.color = c;
+			if (sr2 != null)
+				sr2.color = c;
+			LeanTween.value(gameObject, 0.0f, 1.0f, 0.33f)
+				.setOnUpdate((float t) => {
+					c = sr.color;
+					c.a = t;
+					sr.color = c;
+					if (sr2 != null)
+						sr2.color = c;
+				});
+		}
 	}
 
 	public void OnDie() {

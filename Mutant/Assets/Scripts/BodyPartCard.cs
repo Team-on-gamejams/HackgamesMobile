@@ -6,6 +6,7 @@ using TMPro;
 
 public class BodyPartCard : MonoBehaviour {
 	public RectTransform rectTransform;
+	[System.NonSerialized] public BodyPart part;
 
 	[SerializeField] Image image;
 	[SerializeField] TextMeshProUGUI nameField;
@@ -17,7 +18,9 @@ public class BodyPartCard : MonoBehaviour {
 	[SerializeField] TextMeshProUGUI attackField;
 	[SerializeField] TextMeshProUGUI attackRateField;
 
-	public void Init(BodyPart part) {
+	public void Init(BodyPart _part) {
+		part = _part;
+
 		image.sprite = part.sr.sprite;
 
 		nameField.text = part.gameName;

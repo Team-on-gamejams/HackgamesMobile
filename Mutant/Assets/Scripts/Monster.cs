@@ -20,6 +20,7 @@ public class Monster : MonoBehaviour {
 	[SerializeField] Image healthBarImage;
 	[SerializeField] Image healthBarImageLowAnim;
 	[SerializeField] Image healthBarImageBack;
+	[SerializeField] Image[] bodyPartsImages;
 
 	List<BodyPart> placedParts = new List<BodyPart>();
 	float oneAttackTime = 0.0f;
@@ -113,22 +114,22 @@ public class Monster : MonoBehaviour {
 		onHpChangeEvent?.Invoke();
 	}
 
-	public void RecreateBodyParts() {
+	public void RecreateBodyParts(bool isForce = false) {
 		foreach (var part in placedParts)
 			Destroy(part.gameObject);
 		placedParts.Clear();
 
-		placedParts.Add(GetInstantiatedPart(BodyPartType.Body));
-		placedParts.Add(GetInstantiatedPart(BodyPartType.Arms));
-		placedParts.Add(GetInstantiatedPart(BodyPartType.Legs));
-		placedParts.Add(GetInstantiatedPart(BodyPartType.Tail));
-		placedParts.Add(GetInstantiatedPart(BodyPartType.Wings));
-		placedParts.Add(GetInstantiatedPart(BodyPartType.Fur));
+		placedParts.Add(GetInstantiatedPart(BodyPartType.Body, isForce));
+		placedParts.Add(GetInstantiatedPart(BodyPartType.Arms, isForce));
+		placedParts.Add(GetInstantiatedPart(BodyPartType.Legs, isForce));
+		placedParts.Add(GetInstantiatedPart(BodyPartType.Tail, isForce));
+		placedParts.Add(GetInstantiatedPart(BodyPartType.Wings, isForce));
+		placedParts.Add(GetInstantiatedPart(BodyPartType.Fur, isForce));
 
-		placedParts.Add(GetInstantiatedPart(BodyPartType.Head));
-		placedParts.Add(GetInstantiatedPart(BodyPartType.Horns));
-		placedParts.Add(GetInstantiatedPart(BodyPartType.Teeth));
-		placedParts.Add(GetInstantiatedPart(BodyPartType.Eyes));
+		placedParts.Add(GetInstantiatedPart(BodyPartType.Head, isForce));
+		placedParts.Add(GetInstantiatedPart(BodyPartType.Horns, isForce));
+		placedParts.Add(GetInstantiatedPart(BodyPartType.Teeth, isForce));
+		placedParts.Add(GetInstantiatedPart(BodyPartType.Eyes, isForce));
 
 		RecalcStats();
 	}
@@ -156,7 +157,7 @@ public class Monster : MonoBehaviour {
 		onHpChangeEvent?.Invoke();
 	}
 
-	BodyPart GetInstantiatedPart(BodyPartType type) {
+	BodyPart GetInstantiatedPart(BodyPartType type, bool isForce = false) {
 		for (int i = 0; i < usedBodyParts.Count; ++i) {
 			BodyPart partPrefab = usedBodyParts[i];
 			if (partPrefab.type == type) {
@@ -176,7 +177,10 @@ public class Monster : MonoBehaviour {
 				}
 
 				BodyPart part = Instantiate(partPrefab, pos, Quaternion.identity, parent).GetComponent<BodyPart>();
+				part.isForce = isForce;
 				part.transform.localEulerAngles = Vector3.zero;
+				if(bodyPartsImages != null && bodyPartsImages.Length > (int)type)
+					bodyPartsImages[(int)type].sprite = partPrefab.sr.sprite;
 				return part;
 			}
 		}
