@@ -2311,8 +2311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d5a0c6efef9f624cbc701b5a6a35893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stats: []
-  currHp: 0
   IsPlayer: 1
   usedBodyParts:
   - {fileID: 2419723081901089438, guid: 79cafc54334de5443b6c00a48962490f, type: 3}
@@ -2325,6 +2323,7 @@ MonoBehaviour:
   - {fileID: 6924271443591000060, guid: ac6e878d55832854b9ad98a97bdf9a61, type: 3}
   - {fileID: 3628104749814391936, guid: a02c11c7f37b7c147895ab297e1cb791, type: 3}
   - {fileID: 1796619793391682561, guid: a86ba5114dc0c714db3dff5f546ca9c3, type: 3}
+  healBarTime: 1
   healthBarImage: {fileID: 1045028755}
   healthBarImageLowAnim: {fileID: 121459902}
 --- !u!224 &1530341881 stripped

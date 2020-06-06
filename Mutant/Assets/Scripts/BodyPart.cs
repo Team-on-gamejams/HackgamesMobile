@@ -15,6 +15,16 @@ public class BodyPart : MonoBehaviour {
 
 	private void Awake() {
 		rigidbody.simulated = false;
+
+		Color c = sr.color;
+		c.a = 0.0f;
+		sr.color = c;
+		LeanTween.value(gameObject, 0.0f, 1.0f, 0.33f)
+			.setOnUpdate((float t) => {
+				c = sr.color;
+				c.a = t;
+				sr.color = c;
+			});
 	}
 
 	public void OnDie() {

@@ -23,7 +23,7 @@ public class BattleManager : MonoBehaviour {
 
 		CreateNewEnemy();
 
-		isInBattle = true;
+		LeanTween.delayedCall(0.33f, Continue);
 	}
 
 	private void Update() {
@@ -92,8 +92,10 @@ public class BattleManager : MonoBehaviour {
 		enemyMonster.RecalcStats();
 
 		LeanTween.delayedCall(3.0f, () => {
-			//isInBattle = true;
-			//TODO: respawn player
+			playerMonster.RecreateBodyParts();
+			LeanTween.delayedCall(1.1f, () => {
+				isInBattle = true;
+			});
 		});
 	}
 }

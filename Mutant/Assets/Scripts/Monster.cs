@@ -9,13 +9,14 @@ public class Monster : MonoBehaviour {
 	public Action onHpChangeEvent;
 	public Action onDie;
 
-	public float[] Stats;
-	public float currHp;
+	[NonSerialized] public float[] Stats;
+	[NonSerialized] public float currHp;
 
-	[SerializeField] bool IsPlayer;
+	[SerializeField] bool IsPlayer = false;
 	public List<BodyPart> usedBodyParts;
-	
-	[Header("UI")] [Space]
+
+	[Header("Health")] [Space]
+	[SerializeField] float healBarTime = 0.2f;
 	[SerializeField] Image healthBarImage;
 	[SerializeField] Image healthBarImageLowAnim;
 
@@ -145,7 +146,7 @@ public class Monster : MonoBehaviour {
 		if(currHp / Stats[(int)StatType.Hp] >= healthBarImage.fillAmount) {
 			LeanTween.cancel(healthBarImage.gameObject, false);
 
-			LeanTween.value(healthBarImage.gameObject, healthBarImage.fillAmount, currHp / Stats[(int)StatType.Hp], 3.0f)
+			LeanTween.value(healthBarImage.gameObject, healthBarImage.fillAmount, currHp / Stats[(int)StatType.Hp], healBarTime)
 			.setOnUpdate((float val) => {
 				healthBarImage.fillAmount = val;
 			});
@@ -158,6 +159,7 @@ public class Monster : MonoBehaviour {
 
 
 			LeanTween.value(healthBarImageLowAnim.gameObject, healthBarImageLowAnim.fillAmount, healthBarImage.fillAmount, 0.2f)
+			.setDelay(0.13f)
 			.setOnUpdate((float val) => {
 				healthBarImageLowAnim.fillAmount = val;
 			});

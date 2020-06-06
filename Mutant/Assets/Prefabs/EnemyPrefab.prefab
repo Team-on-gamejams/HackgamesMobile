@@ -324,10 +324,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d5a0c6efef9f624cbc701b5a6a35893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stats: []
-  currHp: 0
   IsPlayer: 0
   usedBodyParts: []
+  healBarTime: 3
   healthBarImage: {fileID: 8518211073575159034}
   healthBarImageLowAnim: {fileID: 2908640909814609608}
 --- !u!114 &8471344004418525199
