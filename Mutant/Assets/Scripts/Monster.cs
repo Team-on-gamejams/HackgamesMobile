@@ -98,6 +98,11 @@ public class Monster : MonoBehaviour {
 		RecalcStats();
 	}
 
+	public void ResetHealth() {
+		currHp = Stats[(int)StatType.Hp];
+		onHpChangeEvent?.Invoke();
+	}
+
 	public void RecalcStats() {
 		for (int i = 0; i < Stats.Length; ++i) {
 			Stats[i] = 0.0f;

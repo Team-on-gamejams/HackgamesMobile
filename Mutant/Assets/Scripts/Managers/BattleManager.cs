@@ -84,6 +84,8 @@ public class BattleManager : MonoBehaviour {
 		Destroy(enemyMonster.gameObject, 1.5f);
 		enemyMonster = null;
 
+		playerMonster.ResetHealth();
+
 		LeanTween.delayedCall(1.5f, CreateNewEnemy);
 	}
 
