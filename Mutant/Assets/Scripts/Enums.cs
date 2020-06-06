@@ -10,6 +10,8 @@ public enum StatType : byte {
 	AttackSpeed,
 	CriticalChance,
 	GearLevel,
+	Meat,
+	Dna,
 	LAST_STAT,
 }
 

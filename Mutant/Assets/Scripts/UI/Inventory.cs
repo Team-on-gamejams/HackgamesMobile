@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour {
 	[Header("Refs")] [Space]
 	[SerializeField] PartsManager partsManager;
 	[SerializeField] GameObject partCardPrefab;
+	[SerializeField] Transform cardsCenter;
 
 	int selectedId = 0;
 	int[] selectedCard;
@@ -30,10 +31,10 @@ public class Inventory : MonoBehaviour {
 
 			BodyPart[] parts = partsManager.GetAllOwnedByPlayer((BodyPartType)i);
 			for(int j = parts.Length - 1; j >= 0; --j) {
-				BodyPartCard card = Instantiate(partCardPrefab, tabs[i].position, Quaternion.identity, tabs[i].transform).GetComponent<BodyPartCard>();
+				BodyPartCard card = Instantiate(partCardPrefab, cardsCenter.position, Quaternion.identity, tabs[i].transform).GetComponent<BodyPartCard>();
 				card.Init(parts[j]);
 
-				card.transform.position = tabs[i].position;
+				card.transform.position = cardsCenter.position;
 				card.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.one * 0.33f, Mathf.Abs(selectedCard[i] - j) / 2.0f);
 			}
 		}
