@@ -23,5 +23,5 @@ Local game-jam in Kiev, running by Murka few times per year
 
 # Screenshots
 ![Screenshot1](Screenshots/Ua/3.png)  
-![Screenshot2](Screenshots/Ua/5.png)  
-![Screenshot3](Screenshots/Ua/7.png)  
+![Screenshot2](Screenshots/Ua/5.jpg)  
+![Screenshot3](Screenshots/Ua/7.jpg)  
