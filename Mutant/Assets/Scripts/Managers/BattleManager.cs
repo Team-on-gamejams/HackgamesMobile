@@ -6,6 +6,8 @@ using TMPro;
 using System.Diagnostics;
 
 public class BattleManager : MonoBehaviour {
+	public System.Action<Monster> onEnemySpawnEvent;
+
 	[SerializeField] Monster playerMonster;
 	[SerializeField] PartsManager partsManager;
 	[Space]
@@ -196,6 +198,8 @@ public class BattleManager : MonoBehaviour {
 		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Eyes));
 		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Horns));
 		enemyMonster.RecreateBodyParts();
+
+		onEnemySpawnEvent?.Invoke(enemyMonster);
 	}
 
 	void OnEnemyDie() {

@@ -9,6 +9,9 @@ public class SkillsActivator : MonoBehaviour, IDropHandler
    [SerializeField] private Monster targetEnemy;
    [SerializeField] private Monster currentMonster;
    [SerializeField] private CartObject currentCart;
+   [SerializeField] private bool isEnemy = false;
+   [SerializeField] private BattleManager battle;
+
    public void OnDrop(PointerEventData eventData)
    {
       if (eventData.pointerDrag == null) return;
@@ -21,8 +24,17 @@ public class SkillsActivator : MonoBehaviour, IDropHandler
 
    public void Awake()
    {
-      this.currentMonster = transform.GetComponent<Monster>();
+        battle.onEnemySpawnEvent += OnEnemySpawn;
    }
+
+    void OnEnemySpawn(Monster m) {
+        if (isEnemy) {
+            currentMonster = m;
+        }
+        else {
+            targetEnemy = m;
+        }
+    }
 
    private Monster CheckMonsterIsPlayer(GameObject target)
    {
