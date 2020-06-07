@@ -22,6 +22,6 @@ Local game-jam in Kiev, running by Murka few times per year
  * [Dmitry Semenov](https://www.youtube.com/watch?v=zscyS1aLA28&feature=youtu.be) - Sound Designer
 
 # Screenshots
-![Screenshot1](Screenshots/3.jpg)  
-![Screenshot2](Screenshots/5.jpg)  
-![Screenshot3](Screenshots/7.jpg)  
+![Screenshot1](Screenshots/3.png)  
+![Screenshot2](Screenshots/5.png)  
+![Screenshot3](Screenshots/7.png)  
