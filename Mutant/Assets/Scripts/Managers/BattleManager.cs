@@ -17,6 +17,7 @@ public class BattleManager : MonoBehaviour {
 	[SerializeField] Transform enemyBottomPos;
 	[SerializeField] Sprite meatSprite;
 	[SerializeField] Transform meatCollectorPos;
+	[SerializeField] Transform bodyPartCollectorPos;
 	[SerializeField] Canvas canvas;
 	[Space]
 	[SerializeField] TextMeshProUGUI levelTextField1;
@@ -205,7 +206,6 @@ public class BattleManager : MonoBehaviour {
 	void OnEnemyDie() {
 		enemyMonster.onDie -= OnEnemyDie;
 		Destroy(enemyMonster.gameObject, 1.5f);
-		enemyMonster = null;
 
 		int droppedMeat = Mathf.RoundToInt(baseMeat + Random.Range(mathForLevelMin * currLevel, mathForLevelMax * currLevel));
 		int meatPieces = droppedMeat / 10 + (droppedMeat % 10 != 0? 1 : 0);
@@ -278,6 +278,60 @@ public class BattleManager : MonoBehaviour {
 				});
 		}
 
+		List<BodyPart> unownedParts = new List<BodyPart>();
+		for(int i = 0; i < enemyMonster.usedBodyParts.Count; ++i) {
+			if (!partsManager.IsOwnedByPlayerBodyPart(enemyMonster.usedBodyParts[i]))
+				unownedParts.Add(enemyMonster.usedBodyParts[i]);
+		}
+
+		if(unownedParts.Count != 0) {
+			BodyPart partToAdd = unownedParts.Random();
+			partsManager.AddToPlayerParts(partToAdd);
+
+			GameObject meatgo = new GameObject("Flying body part");
+			meatgo.transform.SetParent(canvas.transform);
+			Image img = meatgo.AddComponent<Image>();
+			img.sprite = partToAdd.sr.sprite;
+			Color c = img.color;
+			c.a = 0.0f;
+			img.color = c;
+			img.SetNativeSize();
+			img.rectTransform.sizeDelta /= 2;
+
+			meatgo.transform.position = GameManager.Instance.Camera.WorldToScreenPoint(enemyBottomPos.position + (Vector3)Random.insideUnitCircle);
+			meatgo.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0, 360f));
+
+			LeanTween.value(0, 1, 0.5f)
+				.setOnUpdate((float a) => {
+					c = img.color;
+					c.a = a;
+					img.color = c;
+				})
+				.setOnComplete(() => {
+					Vector3 startPos = meatgo.transform.position;
+					Vector3 startAngle = meatgo.transform.localEulerAngles;
+					float dist = (bodyPartCollectorPos.position - startPos).magnitude;
+
+					LeanTween.value(0, 1, dist / Screen.height * 0.8f)
+					.setDelay(0.1f * meatPieces)
+					.setOnUpdate((float t) => {
+						meatgo.transform.position = Vector3.Lerp(startPos, bodyPartCollectorPos.position, t);
+						meatgo.transform.localEulerAngles = Vector3.Lerp(startAngle, Vector3.zero, t);
+					});
+
+					LeanTween.value(1, 0, 0.2f)
+					.setDelay(0.1f * meatPieces + dist / Screen.height * 0.64f)
+					.setOnUpdate((float t) => {
+						c = img.color;
+						c.a = t;
+						img.color = c;
+						meatgo.transform.localScale = Vector3.one * t;
+					})
+					.setEase(LeanTweenType.easeInCubic);
+				});
+		}
+
+		enemyMonster = null;
 		playerMonster.ResetHealth();
 		LeanTween.delayedCall(1.5f, CreateNewEnemy);
 	}

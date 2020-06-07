@@ -806,7 +806,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &108681679
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6610,7 +6610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &747535523
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7332,6 +7332,7 @@ MonoBehaviour:
   enemyBottomPos: {fileID: 602342138}
   meatSprite: {fileID: 21300000, guid: ef8daf20439835d44b7f72f9bd9a0d1c, type: 3}
   meatCollectorPos: {fileID: 602110645}
+  bodyPartCollectorPos: {fileID: 22515255}
   canvas: {fileID: 398123044}
   levelTextField1: {fileID: 5328124283593303540}
   counterSound: {fileID: 8300000, guid: a87a7076426a5b945ba3ce7fe2783698, type: 3}
@@ -11673,6 +11674,7 @@ MonoBehaviour:
   - {fileID: 1112963853}
   - {fileID: 585560009}
   - {fileID: 18996205}
+  placedParts: []
 --- !u!1 &1525272245
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class CartsGenerator : MonoBehaviour
 
     private void Awake()
     {
-        currentMonster.placedParts
+        //currentMonster.placedParts
     }
 
     void Start()
