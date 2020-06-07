@@ -8,6 +8,7 @@ public class BattleManager : MonoBehaviour {
 	[SerializeField] Monster playerMonster;
 	[SerializeField] PartsManager partsManager;
 	[Space]
+	[SerializeField] ScreenManager screenManager;
 	[SerializeField] Monster enemyPrefab;
 	[SerializeField] Transform enemyPos;
 	[SerializeField] Transform enemyBottomPos;
@@ -21,6 +22,9 @@ public class BattleManager : MonoBehaviour {
 	[SerializeField] float baseMeat = 10;
 	[SerializeField] float mathForLevelMin = 0.5f;
 	[SerializeField] float mathForLevelMax = 2;
+	[SerializeField] float meatIdleMinute = 1;
+	[SerializeField] float meatIdlePerLevel = 0.2f;
+	float idleMeat = 0;
 
 	Monster enemyMonster;
 
@@ -39,7 +43,88 @@ public class BattleManager : MonoBehaviour {
 
 		CreateNewEnemy();
 
-		LeanTween.delayedCall(0.33f, Continue);
+		currLevel = PlayerPrefs.GetInt("CurrBattleLevel", 0);
+		levelTextField1.text = currLevel.ToString();
+
+		if (PlayerPrefs.HasKey("Meat")) {
+			long lastTicks = PlayerPrefsX.GetLong("TicksLastExit", 0);
+			float minsAfk = (System.DateTime.Now - new System.DateTime(lastTicks)).Minutes;
+			if (minsAfk <= 1)
+				minsAfk = 1;
+			idleMeat = minsAfk * (meatIdleMinute + meatIdlePerLevel * currLevel);
+			if (idleMeat <= 1)
+				idleMeat = 1;
+			screenManager.ShowIldeWindow(idleMeat);
+		}
+		else {
+			screenManager.HideIdleWIndow();
+			LeanTween.delayedCall(0.33f, Continue);
+		}
+	}
+
+	private void OnDestroy() {
+		PlayerPrefs.SetInt("CurrBattleLevel", currLevel);
+		PlayerPrefsX.SetLong("TicksLastExit", System.DateTime.Now.Ticks);
+	}
+
+	public void DropMeatForIdle() {
+		int droppedMeat = Mathf.RoundToInt(idleMeat);
+		int meatPieces = droppedMeat / 10 + (droppedMeat % 10 != 0 ? 1 : 0);
+
+		while (meatPieces != 0) {
+			--meatPieces;
+
+			GameObject meatgo = new GameObject("Flying meat");
+			meatgo.transform.SetParent(canvas.transform);
+			Image img = meatgo.AddComponent<Image>();
+			img.sprite = meatSprite;
+			Color c = img.color;
+			c.a = 0.0f;
+			img.color = c;
+			img.SetNativeSize();
+
+			img.rectTransform.position = GameManager.Instance.Camera.WorldToScreenPoint((Vector3)Random.insideUnitCircle);
+			meatgo.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0, 360f));
+
+			LeanTween.value(0, 1, 0.5f)
+				.setOnUpdate((float a) => {
+					c = img.color;
+					c.a = a;
+					img.color = c;
+				})
+				.setOnComplete(() => {
+					Vector3 startPos = meatgo.transform.position;
+					Vector3 startAngle = meatgo.transform.localEulerAngles;
+					float dist = (meatCollectorPos.position - startPos).magnitude;
+
+					LeanTween.value(0, 1, dist / Screen.height * 0.8f)
+					.setDelay(0.1f * meatPieces)
+					.setOnUpdate((float t) => {
+						meatgo.transform.position = Vector3.Lerp(startPos, meatCollectorPos.position, t);
+						meatgo.transform.localEulerAngles = Vector3.Lerp(startAngle, Vector3.zero, t);
+					});
+
+					LeanTween.value(1, 0, 0.2f)
+					.setDelay(0.1f * meatPieces + dist / Screen.height * 0.64f)
+					.setOnUpdate((float t) => {
+						c = img.color;
+						c.a = t;
+						img.color = c;
+						meatgo.transform.localScale = Vector3.one * t;
+					})
+					.setEase(LeanTweenType.easeInCubic)
+					.setOnComplete(() => {
+						if (droppedMeat >= 10) {
+							playerMonster.AddStatBonus(StatType.Meat, 10);
+							droppedMeat -= 10;
+						}
+						else {
+							playerMonster.AddStatBonus(StatType.Meat, droppedMeat % 10);
+							droppedMeat = 0;
+						}
+					});
+				});
+		}
 	}
 
 	private void Update() {
