@@ -12,6 +12,9 @@ public class ScreenManager : MonoBehaviour {
 	[SerializeField] BattleManager battle;
 	[SerializeField] Monster playerMonster;
 	[SerializeField] Inventory inventory;
+	[Header("IdleWindow")][Space]
+	[SerializeField] RectTransform idleResultWindow;
+	[SerializeField] TMPro.TextMeshProUGUI meatTextField;
 
 	RectTransform battleRect;
 	RectTransform inventoryRect;
@@ -31,6 +34,27 @@ public class ScreenManager : MonoBehaviour {
 
 		battleRect.anchoredPosition = Vector2.zero;
 		inventoryRect.anchoredPosition = screenPosDown;
+	}
+
+	public void ShowIldeWindow(float meat) {
+		meatTextField.text = ((int)(meat)).ToString();
+	}
+
+	public void HideIdleWIndow() {
+		idleResultWindow.gameObject.SetActive(false);
+	}
+
+	public void OnIdleCloseClick() {
+		battle.DropMeatForIdle();
+
+		LeanTween.value(idleResultWindow.gameObject, (Vector3)idleResultWindow.anchoredPosition, GameManager.Instance.Camera.ViewportToScreenPoint(new Vector3(0, 2)), 1.0f)
+			.setOnUpdate((Vector3 newPos)=> {
+				idleResultWindow.anchoredPosition = newPos;
+			})
+			.setEase(LeanTweenType.easeInOutBack)
+			.setOnComplete(()=> { 
+				battle.Continue();
+			});
 	}
 
 	public void ShowBattleScreen() {
