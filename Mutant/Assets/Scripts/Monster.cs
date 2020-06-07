@@ -29,7 +29,19 @@ public class Monster : MonoBehaviour {
 	private void Awake() {
 		Stats = new float[(int)StatType.LAST_STAT];
 
+		if (IsPlayer) {
+			Stats[(int)StatType.Meat] = PlayerPrefs.GetFloat("Meat", 0);
+			Stats[(int)StatType.Dna] = PlayerPrefs.GetFloat("Dna", 0);
+		}
+
 		onHpChangeEvent += OnHpChange;
+	}
+
+	private void OnDestroy() {
+		if (IsPlayer) {
+			PlayerPrefs.SetFloat("Meat", Stats[(int)StatType.Meat]);
+			PlayerPrefs.SetFloat("Dna", Stats[(int)StatType.Dna]);
+		}
 	}
 
 	public void ShowHpBar(float time) {

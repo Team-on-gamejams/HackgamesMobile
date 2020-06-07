@@ -14,8 +14,16 @@ public class PartsManager : MonoBehaviour {
 		instance = this;
 	}
 
+	private void OnDestroy() {
+		SavePlayerData();
+	}
+
 	public BodyPart GetRandomPart(BodyPartType type) {
 		return allParts[(int)type].parts.Random();
+	}
+
+	public BodyPart[] GetAllParts(BodyPartType type) {
+		return allParts[(int)type].parts;
 	}
 
 	public BodyPart[] GetAllOwnedByPlayer(BodyPartType type) {
@@ -35,13 +43,65 @@ public class PartsManager : MonoBehaviour {
 		return null;
 	}
 
+	public bool IsHavePlayerSave() {
+		return PlayerPrefs.HasKey("Meat");
+	}
+
+	public void LoadPlayerSave(Monster playerMonster) {
+		Debug.Log("Load save");
+		for (int i = 0; i < allParts.Length; ++i) {
+			allParts[i].playerlevel = PlayerPrefsX.GetIntArray($"PartsLevels_{allParts[i].type}");
+			allParts[i].isOwnedByPlayer = PlayerPrefsX.GetBoolArray($"IsOwnedByPlayer_{allParts[i].type}");
+		}
+
+		LoadBodyPart(BodyPartType.Body);
+
+		LoadBodyPart(BodyPartType.Arms);
+		LoadBodyPart(BodyPartType.Legs);
+		LoadBodyPart(BodyPartType.Tail);
+		LoadBodyPart(BodyPartType.Wings);
+		LoadBodyPart(BodyPartType.Fur);
+
+		LoadBodyPart(BodyPartType.Head);
+		LoadBodyPart(BodyPartType.Teeth);
+		LoadBodyPart(BodyPartType.Eyes);
+		LoadBodyPart(BodyPartType.Horns);
+
+		void LoadBodyPart(BodyPartType type) {
+			int id = PlayerPrefs.GetInt($"EquipedId_{type}");
+			allParts[(int)type].parts[id].isEquipedByPlayer = true; 
+			playerMonster.usedBodyParts.Add(GetAllParts(type)[id]);
+		}
+
+		OnNewPlayerPartsAvaliable?.Invoke();
+	}
+
+	public void SavePlayerData() {
+		Debug.Log("Save game");
+		for (int i = 0; i < allParts.Length; ++i) {
+			PlayerPrefsX.SetIntArray($"PartsLevels_{allParts[i].type}", allParts[i].playerlevel);
+			PlayerPrefsX.SetBoolArray($"IsOwnedByPlayer_{allParts[i].type}", allParts[i].isOwnedByPlayer);
+
+			for(int j = 0; j < allParts[i].parts.Length; ++j) {
+				if (allParts[i].parts[j].isEquipedByPlayer) {
+					PlayerPrefs.SetInt($"EquipedId_{allParts[i].type}", j);
+					break;
+				}
+			}
+		}
+	}
+
 	public void InitStartPlayerParts(Monster playerMonster) {
+		Debug.Log("Start new game");
 		for (int i = 0; i < allParts.Length; ++i) {
 			allParts[i].isOwnedByPlayer[0] = true;
 			allParts[i].parts[0].isEquipedByPlayer = true;
-			//for (int j = 1; j < allParts[i].parts.Length; ++j) {
-			//	allParts[i].isOwnedByPlayer[j] = false;
-			//}
+
+			if(i != 0) {
+				for (int j = 1; j < allParts[i].parts.Length; ++j) {
+					allParts[i].isOwnedByPlayer[j] = false;
+				}
+			}
 		}
 
 		for (int i = 0; i < allParts.Length; ++i) {
