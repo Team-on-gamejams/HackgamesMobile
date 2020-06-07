@@ -22,7 +22,7 @@ public class Monster : MonoBehaviour {
 	[SerializeField] Image healthBarImageBack;
 	[SerializeField] Image[] bodyPartsImages;
 
-	List<BodyPart> placedParts = new List<BodyPart>();
+	public List<BodyPart> placedParts = new List<BodyPart>();
 	float oneAttackTime = 0.0f;
 	float currAttackTimer = 0.0f;
 
