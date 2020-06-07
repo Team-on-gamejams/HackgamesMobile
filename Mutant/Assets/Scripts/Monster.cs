@@ -71,6 +71,13 @@ public class Monster : MonoBehaviour {
 		}
 	}
 
+	public void AddStatBonus(StatType type, float value) {
+		Stats[(int)type] += value;
+		if(type == StatType.AttackSpeed)
+			oneAttackTime = 1.0f / (Stats[(int)StatType.AttackSpeed] != 0 ? Stats[(int)StatType.AttackSpeed] : 1);
+		onStatsChangeEvent?.Invoke();
+	}
+
 	public void Heal(float heal) {
 		if (currHp < Stats[(int)StatType.Hp]) {
 			currHp += heal;

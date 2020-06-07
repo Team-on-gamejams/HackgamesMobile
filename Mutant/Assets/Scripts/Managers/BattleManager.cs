@@ -12,6 +12,9 @@ public class BattleManager : MonoBehaviour {
 	[Space]
 	[SerializeField] TextMeshProUGUI levelTextField1;
 
+	[Header("Balance")] [Space]
+	[SerializeField] float baseMeat;
+
 	Monster enemyMonster;
 
 	int isInBattle = 1;
@@ -90,7 +93,6 @@ public class BattleManager : MonoBehaviour {
 		enemyMonster = null;
 
 		playerMonster.ResetHealth();
-
 		LeanTween.delayedCall(1.5f, CreateNewEnemy);
 	}
 
