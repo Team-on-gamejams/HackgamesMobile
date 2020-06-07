@@ -19,9 +19,10 @@ public class CartsGenerator : MonoBehaviour
         {
             Debug.Log(part.sr.sprite);
             GameObject item = Instantiate(cartPrefab);
-            CartObject currentObject =item.GetComponent<CartObject>();
+            CartObject currentObject = item.GetComponent<CartObject>();
             currentObject.SetPartSprite(part.sr.sprite);
-            currentObject.SetCartStats(10f,5f,0f,50,5, "Custom text", (int)Random.Range(1f,1000f));
+            // TODO throw stats on method 👇 🔽🔽🔽🔽🔽
+            currentObject.SetCartStats(10f, 5f, 0f, 50, 5, "Custom text", (int) Random.Range(1f, 1000f));
             readyCarts.Add(item);
         }
 
@@ -34,6 +35,4 @@ public class CartsGenerator : MonoBehaviour
             currentCart.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         }
     }
-
-
 }
