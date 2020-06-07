@@ -7,7 +7,6 @@ public class CartDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IPo
 {
     [SerializeField] private Transform toTopPosition;
     [SerializeField] private Transform toDefaultPosition;
-    [SerializeField] private int cooldownTime = 5;
 
     public float damage = 200;
     private bool onCooldown = false;
@@ -40,9 +39,9 @@ public class CartDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IPo
 
     }
 
-    public void StartCooldown()
+    public void StartCooldown(int cooldownTime)
     {
-        StartCoroutine(SetCooldown(transform.GetComponent<CanvasGroup>(), this.cooldownTime));
+        StartCoroutine(SetCooldown(transform.GetComponent<CanvasGroup>(), cooldownTime));
     }
 
     IEnumerator SetCooldown(CanvasGroup target, int timeout)

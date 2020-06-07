@@ -1,25 +1,35 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CartObject : MonoBehaviour
 {
+    
+   [SerializeField] public string  description;
+   [SerializeField] public float  damage;
+   [SerializeField] public float  defence;
+   [SerializeField] public float  heal;
+   [SerializeField] public int  critChance;
+   [SerializeField] public int  cooldown;
 
-  [SerializeField] Sprite cartSprite;
-  [SerializeField] int dmg;
-  [SerializeField] int defence;
-  [SerializeField] int heal;
-  [SerializeField] SpriteRenderer iconRenderer;
-  [SerializeField] SpriteRenderer overlayRenderer;
-  [SerializeField] int curentOverlay = 0;
-  [SerializeField] List<Sprite> overlay;
-  [SerializeField] Sprite icon;
+   [Header("Text inputs")] [Space] [SerializeField]
+   public TextMeshProUGUI descriptionField;
+   public TextMeshProUGUI damageField;
+   public TextMeshProUGUI defenceField;
+   public TextMeshProUGUI healField;
+   public TextMeshProUGUI critChanceField;
 
+   private void Awake()
+   {
+      descriptionField.text = description;
+      damageField.text = damage.ToString(CultureInfo.InvariantCulture);
+      healField.text = heal.ToString(CultureInfo.InvariantCulture);
+      defenceField.text = defence.ToString(CultureInfo.InvariantCulture);
+      critChanceField.text = critChance.ToString();
 
-  void Awake()
-  {
-      overlayRenderer.sprite = overlay[curentOverlay];
-      iconRenderer.sprite = icon;
-  }
-
+   }
 }
