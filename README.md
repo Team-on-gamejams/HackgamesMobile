@@ -2,7 +2,7 @@
 Theme: Idle game  
 
 ![Cover](Screenshots/Cover.png)  
-ВУІСЕШЗЕШЩТ
+Arena fighting game, where player manage mutant, use skills to kill enemies and collect meat and new body parts to upgrade own mutant.
 
 # Downloads and Links
 Available in [Windows, Linux, OSX, Web and Android](https://teamon.itch.io/this-is-mutaaant). If you encounter any problem, please leave a issue!
@@ -17,8 +17,9 @@ Local game-jam in Kiev, running by Murka few times per year
 
 # Credits
  * [Team-on](https://github.com/Team-on) - programmer
- * [Long-as-Python](https://github.com/Long-as-Python) - programmer
- * [durnevigor](https://sketchfab.com/durnevigor) - 3d artist
+ * [Trozeman](https://github.com/Trozeman) - programmer
+ * [ainarts](https://www.artstation.com/ainarts) - 2d artist
+ * [Dmitry Semenov](https://www.youtube.com/watch?v=zscyS1aLA28&feature=youtu.be) - Sound Designer
 
 # Screenshots
 ![Screenshot1](Screenshots/1.jpg)  
