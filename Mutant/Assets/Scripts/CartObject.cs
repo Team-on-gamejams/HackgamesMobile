@@ -5,11 +5,12 @@ using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class CartObject : MonoBehaviour
 {
     
-   [SerializeField] public string  description;
+   [Multiline] [SerializeField] public string  description;
    [SerializeField] public float  damage;
    [SerializeField] public float  defence;
    [SerializeField] public float  heal;
@@ -23,6 +24,15 @@ public class CartObject : MonoBehaviour
    public TextMeshProUGUI healField;
    public TextMeshProUGUI critChanceField;
 
+   [Header("Images Sources")] [Space] [SerializeField]
+   public Sprite cartOverlay;
+   public Sprite cartBorder;
+   public Sprite cartPart;
+
+   [Header("Images Places")] [Space] [SerializeField] 
+   public Image overlayPosition;
+   public Image borderPosition;
+   public Image partPosition;
    private void Awake()
    {
       descriptionField.text = description;
@@ -30,6 +40,10 @@ public class CartObject : MonoBehaviour
       healField.text = heal.ToString(CultureInfo.InvariantCulture);
       defenceField.text = defence.ToString(CultureInfo.InvariantCulture);
       critChanceField.text = critChance.ToString();
+
+      overlayPosition.sprite = cartOverlay;
+      borderPosition.sprite = cartBorder;
+      partPosition.sprite = cartPart;
 
    }
 }

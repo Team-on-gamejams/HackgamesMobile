@@ -7372,6 +7372,12 @@ MonoBehaviour:
   defenceField: {fileID: 2002781557}
   healField: {fileID: 2112417922}
   critChanceField: {fileID: 1201863524}
+  cartOverlay: {fileID: 21300000, guid: 87e72ceba2c9ec54593d319705ad4112, type: 3}
+  cartBorder: {fileID: 21300000, guid: b251d54f4025ca3458db80b21aebb216, type: 3}
+  cartPart: {fileID: 21300000, guid: 9453390b9a65e19488a676e041a70a37, type: 3}
+  overlayPosition: {fileID: 326327144}
+  borderPosition: {fileID: 2015560291}
+  partPosition: {fileID: 1194027183}
 --- !u!222 &1979162394
 CanvasRenderer:
   m_ObjectHideFlags: 0
