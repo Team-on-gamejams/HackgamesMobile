@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Diagnostics;
 
 public class BattleManager : MonoBehaviour {
 	[SerializeField] Monster playerMonster;
@@ -17,6 +18,7 @@ public class BattleManager : MonoBehaviour {
 	[SerializeField] Canvas canvas;
 	[Space]
 	[SerializeField] TextMeshProUGUI levelTextField1;
+	[SerializeField] AudioClip counterSound;
 
 	[Header("Balance")] [Space]
 	[SerializeField] float baseMeat = 10;
@@ -70,6 +72,7 @@ public class BattleManager : MonoBehaviour {
 	public void DropMeatForIdle() {
 		int droppedMeat = Mathf.RoundToInt(idleMeat);
 		int meatPieces = droppedMeat / 10 + (droppedMeat % 10 != 0 ? 1 : 0);
+		AudioSource counteras = null;
 
 		while (meatPieces != 0) {
 			--meatPieces;
@@ -104,8 +107,14 @@ public class BattleManager : MonoBehaviour {
 						meatgo.transform.localEulerAngles = Vector3.Lerp(startAngle, Vector3.zero, t);
 					});
 
+					bool isLastLoop = meatPieces == 0;
 					LeanTween.value(1, 0, 0.2f)
 					.setDelay(0.1f * meatPieces + dist / Screen.height * 0.64f)
+					.setOnStart(() => {
+						if (counteras == null) {
+							counteras = AudioManager.Instance.Play(counterSound, channel: AudioManager.AudioChannel.Sound);
+						}
+					})
 					.setOnUpdate((float t) => {
 						c = img.color;
 						c.a = t;
@@ -121,6 +130,11 @@ public class BattleManager : MonoBehaviour {
 						else {
 							playerMonster.AddStatBonus(StatType.Meat, droppedMeat % 10);
 							droppedMeat = 0;
+						}
+
+						if (counteras != null && isLastLoop) {
+							counteras.Stop();
+							counteras = null;
 						}
 					});
 				});
@@ -192,6 +206,8 @@ public class BattleManager : MonoBehaviour {
 		int droppedMeat = Mathf.RoundToInt(baseMeat + Random.Range(mathForLevelMin * currLevel, mathForLevelMax * currLevel));
 		int meatPieces = droppedMeat / 10 + (droppedMeat % 10 != 0? 1 : 0);
 
+		AudioSource counteras = null;
+
 		while(meatPieces != 0) {
 			--meatPieces;
 
@@ -225,8 +241,14 @@ public class BattleManager : MonoBehaviour {
 						meatgo.transform.localEulerAngles = Vector3.Lerp(startAngle, Vector3.zero, t);
 					});
 
+					bool isLastLoop = meatPieces == 0;
 					LeanTween.value(1, 0, 0.2f)
 					.setDelay(0.1f * meatPieces + dist / Screen.height * 0.64f)
+					.setOnStart(()=> { 
+						if(counteras == null) {
+							counteras = AudioManager.Instance.Play(counterSound, channel: AudioManager.AudioChannel.Sound);
+						}
+					})
 					.setOnUpdate((float t) => {
 						c = img.color;
 						c.a = t;
@@ -242,6 +264,11 @@ public class BattleManager : MonoBehaviour {
 						else {
 							playerMonster.AddStatBonus(StatType.Meat, droppedMeat % 10);
 							droppedMeat = 0;
+						}
+
+						if(counteras != null && isLastLoop) {
+							counteras.Stop();
+							counteras = null;
 						}
 					});
 				});
