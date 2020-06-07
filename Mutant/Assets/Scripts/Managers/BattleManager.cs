@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class BattleManager : MonoBehaviour {
@@ -9,11 +10,17 @@ public class BattleManager : MonoBehaviour {
 	[Space]
 	[SerializeField] Monster enemyPrefab;
 	[SerializeField] Transform enemyPos;
+	[SerializeField] Transform enemyBottomPos;
+	[SerializeField] Sprite meatSprite;
+	[SerializeField] Transform meatCollectorPos;
+	[SerializeField] Canvas canvas;
 	[Space]
 	[SerializeField] TextMeshProUGUI levelTextField1;
 
 	[Header("Balance")] [Space]
-	[SerializeField] float baseMeat;
+	[SerializeField] float baseMeat = 10;
+	[SerializeField] float mathForLevelMin = 0.5f;
+	[SerializeField] float mathForLevelMax = 2;
 
 	Monster enemyMonster;
 
@@ -91,6 +98,64 @@ public class BattleManager : MonoBehaviour {
 		enemyMonster.onDie -= OnEnemyDie;
 		Destroy(enemyMonster.gameObject, 1.5f);
 		enemyMonster = null;
+
+		int droppedMeat = Mathf.RoundToInt(baseMeat + Random.Range(mathForLevelMin * currLevel, mathForLevelMax * currLevel));
+		int meatPieces = droppedMeat / 10 + (droppedMeat % 10 != 0? 1 : 0);
+
+		while(meatPieces != 0) {
+			--meatPieces;
+
+			GameObject meatgo = new GameObject("Flying meat");
+			meatgo.transform.SetParent(canvas.transform);
+			Image img = meatgo.AddComponent<Image>();
+			img.sprite = meatSprite;
+			Color c = img.color;
+			c.a = 0.0f;
+			img.color = c;
+			img.SetNativeSize();
+
+			meatgo.transform.position = GameManager.Instance.Camera.WorldToScreenPoint(enemyBottomPos.position + (Vector3)Random.insideUnitCircle);
+			meatgo.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0, 360f));
+
+			LeanTween.value(0, 1, 0.5f)
+				.setOnUpdate((float a) => {
+					c = img.color;
+					c.a = a;
+					img.color = c;
+				})
+				.setOnComplete(() => {
+					Vector3 startPos = meatgo.transform.position;
+					Vector3 startAngle = meatgo.transform.localEulerAngles;
+					float dist = (meatCollectorPos.position - startPos).magnitude;
+
+					LeanTween.value(0, 1, dist / Screen.height * 0.8f)
+					.setDelay(0.1f * meatPieces)
+					.setOnUpdate((float t) => {
+						meatgo.transform.position = Vector3.Lerp(startPos,meatCollectorPos.position, t);
+						meatgo.transform.localEulerAngles = Vector3.Lerp(startAngle, Vector3.zero, t);
+					});
+
+					LeanTween.value(1, 0, 0.2f)
+					.setDelay(0.1f * meatPieces + dist / Screen.height * 0.64f)
+					.setOnUpdate((float t) => {
+						c = img.color;
+						c.a = t;
+						img.color = c;
+						meatgo.transform.localScale = Vector3.one * t;
+					})
+					.setEase(LeanTweenType.easeInCubic)
+					.setOnComplete(()=> {
+						if (droppedMeat >= 10) {
+							playerMonster.AddStatBonus(StatType.Meat, 10);
+							droppedMeat -= 10;
+						}
+						else {
+							playerMonster.AddStatBonus(StatType.Meat, droppedMeat % 10);
+							droppedMeat = 0;
+						}
+					});
+				});
+		}
 
 		playerMonster.ResetHealth();
 		LeanTween.delayedCall(1.5f, CreateNewEnemy);
