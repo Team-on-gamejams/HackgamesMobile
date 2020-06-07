@@ -71,6 +71,15 @@ public class Monster : MonoBehaviour {
 		}
 	}
 
+	public void Heal(float heal) {
+		if (currHp < Stats[(int)StatType.Hp]) {
+			currHp += heal;
+			if (currHp > Stats[(int)StatType.Hp])
+				currHp = Stats[(int)StatType.Hp];
+			onHpChangeEvent?.Invoke();
+		}
+	}
+
 	public void InstaCheatAttack() {
 		currAttackTimer += oneAttackTime;
 	}
