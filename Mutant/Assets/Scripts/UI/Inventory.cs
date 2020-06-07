@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 
 	[SerializeField] Button[] buttons;
 	[SerializeField] RectTransform[] tabs;
+	[SerializeField] AudioClip[] soundsUpgrade;
 
 	[Header("Refs")] [Space]
 	[SerializeField] PartsManager partsManager;
@@ -127,7 +128,7 @@ public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 	public void OnUpgradeClick() {
 		int price = partsManager.GetUpgradePrice(cards[selectedId][selectedCard[selectedId]].part);
 
-		if(playerMonster.Stats[(int)StatType.Meat] >= price) {
+		if (playerMonster.Stats[(int)StatType.Meat] >= price) {
 			playerMonster.AddStatBonus(StatType.Meat, -price);
 			partsManager.LevelUpPart(cards[selectedId][selectedCard[selectedId]].part);
 			cards[selectedId][selectedCard[selectedId]].Init(cards[selectedId][selectedCard[selectedId]].part, partsManager);
@@ -135,9 +136,9 @@ public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 
 			if (cards[selectedId][selectedCard[selectedId]].part.isEquipedByPlayer)
 				playerMonster.RecreateBodyParts(true);
-		}
 
-		
+			AudioManager.Instance.Play(soundsUpgrade.Random(), channel: AudioManager.AudioChannel.Sound);
+		}
 	}
 
 	void RecreateCards() {
