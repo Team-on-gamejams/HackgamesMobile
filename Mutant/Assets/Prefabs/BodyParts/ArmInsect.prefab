@@ -98,7 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   gameName: "\u0420\u0443\u043A\u0438"
-  gameDescription: "\u0414\u0430\u0439 \u043F\u043E\u0442\u0440\u043E\u0433\u0430\u0442\u044C"
+  gameDescription: "\u0412\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u0430\u044E\u0442\u044C
+    \u0437\u0430 \u0448\u0432\u0438\u0434\u043A\u0456\u0441\u0442\u044C \u0430\u0442\u0430\u043A\u0438"
   stats:
   - type: 0
     value: 15
@@ -113,14 +114,16 @@ MonoBehaviour:
     value: 2
     growPerLevel: 0.2
   - type: 4
-    value: 0
-    growPerLevel: 0
+    value: 1
+    growPerLevel: 0.1
   - type: 5
     value: 0
     growPerLevel: 0
   - type: 6
     value: 0
     growPerLevel: 0
+  levelUpPrice: 10
+  levelUpPriceGrow: 1
   connectionParts: 
   connectionPoints: []
   rigidbody: {fileID: -4409455594614957435}

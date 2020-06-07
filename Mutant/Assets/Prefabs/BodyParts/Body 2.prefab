@@ -240,7 +240,7 @@ MonoBehaviour:
     value: 20
     growPerLevel: 0.2
   - type: 4
-    value: 1
+    value: 0
     growPerLevel: 0
   - type: 5
     value: 15
@@ -248,6 +248,8 @@ MonoBehaviour:
   - type: 6
     value: 1
     growPerLevel: 0
+  levelUpPrice: 10
+  levelUpPriceGrow: 1
   connectionParts: 010000000200000003000000060000000800000009000000
   connectionPoints:
   - {fileID: 7097864194932272756}
