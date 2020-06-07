@@ -163,7 +163,8 @@ public class Monster : MonoBehaviour {
 
 	public void RecalcStats() {
 		for (int i = 0; i < Stats.Length; ++i) {
-			Stats[i] = 0.0f;
+			if(i != (int)StatType.Meat || i != (int)StatType.Dna)
+				Stats[i] = 0.0f;
 		}
 
 		for (int i = 0; i < placedParts.Count; ++i) {
