@@ -19,6 +19,8 @@ public class PartsManager : MonoBehaviour {
 	}
 
 	public BodyPart GetRandomPart(BodyPartType type) {
+		if(type == BodyPartType.Body || type == BodyPartType.Head || type == BodyPartType.Eyes || type == BodyPartType.Tail || type == BodyPartType.Wings || type == BodyPartType.Horns)
+			return allParts[(int)type].parts.RandomExceptLast();
 		return allParts[(int)type].parts.Random();
 	}
 
@@ -132,6 +134,26 @@ public class PartsManager : MonoBehaviour {
 
 
 		return 2;
+	}
+
+	public bool IsOwnedByPlayerBodyPart(BodyPart partToFind) {
+		for (int i = 0; i < allParts[(int)partToFind.type].playerlevel.Length; ++i) {
+			if (partToFind == allParts[(int)partToFind.type].parts[i]) {
+				return allParts[(int)partToFind.type].isOwnedByPlayer[i];
+			}
+		}
+
+		return true;
+	}
+
+	public void AddToPlayerParts(BodyPart partToFind) {
+		for (int i = 0; i < allParts[(int)partToFind.type].playerlevel.Length; ++i) {
+			if (partToFind == allParts[(int)partToFind.type].parts[i]) {
+				allParts[(int)partToFind.type].isOwnedByPlayer[i] = true;
+				OnNewPlayerPartsAvaliable?.Invoke();
+				return;
+			}
+		}
 	}
 
 	public int GetUpgradePrice(BodyPart partToFind) {

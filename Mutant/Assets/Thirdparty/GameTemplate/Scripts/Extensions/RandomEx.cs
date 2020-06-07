@@ -46,4 +46,10 @@ static class RandomEx {
 			return default(T);
 		return array[UnityEngine.Random.Range(0, array.Length)];
 	}
+
+	public static T RandomExceptLast<T>(this T[] array) {
+		if (array.Length == 0)
+			return default(T);
+		return array[UnityEngine.Random.Range(0, array.Length - 1)];
+	}
 }

@@ -806,7 +806,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &108681679
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6610,7 +6610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &747535523
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7332,9 +7332,22 @@ MonoBehaviour:
   enemyBottomPos: {fileID: 602342138}
   meatSprite: {fileID: 21300000, guid: ef8daf20439835d44b7f72f9bd9a0d1c, type: 3}
   meatCollectorPos: {fileID: 602110645}
+  bodyPartCollectorPos: {fileID: 22515255}
   canvas: {fileID: 398123044}
   levelTextField1: {fileID: 5328124283593303540}
   counterSound: {fileID: 8300000, guid: a87a7076426a5b945ba3ce7fe2783698, type: 3}
+  bossParts:
+  - {fileID: 7097864195933710037, guid: 64c6aa10748982d469929329f60f8d6b, type: 3}
+  - {fileID: 2419723081901089438, guid: a736a27cb63c03b4ca0fdbe7b113094e, type: 3}
+  - {fileID: 6860213744668561790, guid: 40efffda5c8da69488659c9cfa07e49c, type: 3}
+  - {fileID: 6924271443591000060, guid: 94b4071f7305ac842837c82b8b640654, type: 3}
+  - {fileID: 1796619793391682561, guid: 0f277fabb4de63948953c3848cd2d0cf, type: 3}
+  - {fileID: 2682538606405504156, guid: 8c2b22baf49f0414a820fc73452ea701, type: 3}
+  - {fileID: 7725923630866626783, guid: 6abe158f70cda1442a2f2bd860ae7352, type: 3}
+  - {fileID: 3628104749814391936, guid: a2cc067a8d10027419eae2d444460ee6, type: 3}
+  - {fileID: 6235043334317898051, guid: 104da6c92bc629b458c558b4926b05d3, type: 3}
+  - {fileID: 1047671715729693573, guid: 66f06c1c99d45664bb92a842acda1044, type: 3}
+  bossLevels: 10
   baseMeat: 10
   mathForLevelMin: 0.5
   mathForLevelMax: 2
@@ -7367,14 +7380,16 @@ MonoBehaviour:
     - {fileID: 7097864195933710037, guid: 9d48a1650a99a224e96f054b53894868, type: 3}
     - {fileID: 7097864195933710037, guid: b323e08f26021664cbdd7d8c0c9b3897, type: 3}
     - {fileID: 7097864195933710037, guid: 9499d1a00f2f127448075e4224603e91, type: 3}
-    isOwnedByPlayer: 010101010101010101010101
+    - {fileID: 7097864195933710037, guid: 64c6aa10748982d469929329f60f8d6b, type: 3}
+    isOwnedByPlayer: 01010101010101010101010100
     playerlevel: 
   - type: 1
     parts:
     - {fileID: 7725923630866626783, guid: 3f05404cf05f0e8439b6c47f266b8c35, type: 3}
     - {fileID: 7725923630866626783, guid: 8b0201fb6b20bca47ad2c2809748c516, type: 3}
     - {fileID: 7725923630866626783, guid: 095ae7a39fc493e4fa23ef78af7d580c, type: 3}
-    isOwnedByPlayer: 010101
+    - {fileID: 7725923630866626783, guid: 6abe158f70cda1442a2f2bd860ae7352, type: 3}
+    isOwnedByPlayer: 01010100
     playerlevel: 
   - type: 2
     parts:
@@ -7395,34 +7410,39 @@ MonoBehaviour:
     - {fileID: 6235043334317898051, guid: 6149f2390b146bd429741721537762c6, type: 3}
     - {fileID: 6235043334317898051, guid: a6286e95b5dbcae418728be53180813a, type: 3}
     - {fileID: 6235043334317898051, guid: b3845ef3d2ca326458a99a2f82820dd9, type: 3}
-    isOwnedByPlayer: 010101
+    - {fileID: 6235043334317898051, guid: 104da6c92bc629b458c558b4926b05d3, type: 3}
+    isOwnedByPlayer: 01010101
     playerlevel: 
   - type: 5
     parts:
     - {fileID: 3628104749814391936, guid: 73d9d639288210b449f8f6b3baf88c5c, type: 3}
     - {fileID: 3628104749814391936, guid: e2fb0fcc461f9c44b83c721b7953df30, type: 3}
     - {fileID: 3628104749814391936, guid: f15d8fd4b716a8749a0a393c11a87243, type: 3}
-    isOwnedByPlayer: 010101
+    - {fileID: 3628104749814391936, guid: a2cc067a8d10027419eae2d444460ee6, type: 3}
+    isOwnedByPlayer: 01010101
     playerlevel: 
   - type: 6
     parts:
     - {fileID: 1796619793391682561, guid: f30771599b9a0b44f9c8270bb5936308, type: 3}
     - {fileID: 1796619793391682561, guid: 10b87d0fcffddb5478d1c50ffe689e54, type: 3}
-    isOwnedByPlayer: 0101
+    - {fileID: 1796619793391682561, guid: 0f277fabb4de63948953c3848cd2d0cf, type: 3}
+    isOwnedByPlayer: 010101
     playerlevel: 
   - type: 7
     parts:
     - {fileID: 1047671715729693573, guid: 495556ce365a61843814538c23de786c, type: 3}
     - {fileID: 1047671715729693573, guid: fa4a9e89889710048ac5c46f702feb6b, type: 3}
     - {fileID: 1047671715729693573, guid: cd9e1b214b605a04a8abb03ecdfd19b7, type: 3}
-    isOwnedByPlayer: 010101
+    - {fileID: 1047671715729693573, guid: 66f06c1c99d45664bb92a842acda1044, type: 3}
+    isOwnedByPlayer: 01010101
     playerlevel: 
   - type: 8
     parts:
     - {fileID: 6924271443591000060, guid: f21365b264c7cec4aa25745c355f57c1, type: 3}
     - {fileID: 6924271443591000060, guid: 151463a93da790b419d5e12198c2b470, type: 3}
     - {fileID: 6924271443591000060, guid: a42e20fb3452a4645bd31bc149d92461, type: 3}
-    isOwnedByPlayer: 010101
+    - {fileID: 6924271443591000060, guid: 94b4071f7305ac842837c82b8b640654, type: 3}
+    isOwnedByPlayer: 01010100
     playerlevel: 
   - type: 9
     parts:
@@ -11673,6 +11693,7 @@ MonoBehaviour:
   - {fileID: 1112963853}
   - {fileID: 585560009}
   - {fileID: 18996205}
+  placedParts: []
 --- !u!1 &1525272245
 GameObject:
   m_ObjectHideFlags: 0

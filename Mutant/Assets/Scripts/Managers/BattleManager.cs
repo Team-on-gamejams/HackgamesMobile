@@ -6,6 +6,7 @@ using TMPro;
 using System.Diagnostics;
 
 public class BattleManager : MonoBehaviour {
+	static public BattleManager instance;
 	public System.Action<Monster> onEnemySpawnEvent;
 
 	[SerializeField] Monster playerMonster;
@@ -17,10 +18,15 @@ public class BattleManager : MonoBehaviour {
 	[SerializeField] Transform enemyBottomPos;
 	[SerializeField] Sprite meatSprite;
 	[SerializeField] Transform meatCollectorPos;
+	[SerializeField] Transform bodyPartCollectorPos;
 	[SerializeField] Canvas canvas;
 	[Space]
 	[SerializeField] TextMeshProUGUI levelTextField1;
 	[SerializeField] AudioClip counterSound;
+
+	[Header("Boss")] [Space]
+	[SerializeField] BodyPart[] bossParts;
+	[SerializeField] int bossLevels = 10;
 
 	[Header("Balance")] [Space]
 	[SerializeField] float baseMeat = 10;
@@ -33,7 +39,11 @@ public class BattleManager : MonoBehaviour {
 	Monster enemyMonster;
 
 	int isInBattle = 1;
-	int currLevel = 0;
+	public int currLevel = 0;
+
+	private void Awake() {
+		instance = this;
+	}
 
 	private void Start() {
 		if (partsManager.IsHavePlayerSave()) {
@@ -45,10 +55,10 @@ public class BattleManager : MonoBehaviour {
 		playerMonster.onDie += OnPlayerDie;
 		playerMonster.RecreateBodyParts();
 
-		CreateNewEnemy();
-
 		currLevel = PlayerPrefs.GetInt("CurrBattleLevel", 0);
 		levelTextField1.text = currLevel.ToString();
+
+		CreateNewEnemy();
 
 		if (PlayerPrefs.HasKey("Meat")) {
 			long lastTicks = PlayerPrefsX.GetLong("TicksLastExit", 0);
@@ -186,17 +196,25 @@ public class BattleManager : MonoBehaviour {
 		enemyMonster = Instantiate(enemyPrefab, enemyPos.position, Quaternion.identity, enemyPos);
 		enemyMonster.onDie += OnEnemyDie;
 
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Body));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Arms));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Legs));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Tail));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Wings));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Fur));
+		if (currLevel != 0 && currLevel % bossLevels == 0) {
+			foreach (var part in bossParts) {
+				enemyMonster.usedBodyParts.Add(part);
+			}
+		}
+		else {
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Body));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Arms));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Legs));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Tail));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Wings));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Fur));
 
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Head));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Teeth));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Eyes));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Horns));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Head));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Teeth));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Eyes));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Horns));
+		}
+
 		enemyMonster.RecreateBodyParts();
 
 		onEnemySpawnEvent?.Invoke(enemyMonster);
@@ -205,7 +223,6 @@ public class BattleManager : MonoBehaviour {
 	void OnEnemyDie() {
 		enemyMonster.onDie -= OnEnemyDie;
 		Destroy(enemyMonster.gameObject, 1.5f);
-		enemyMonster = null;
 
 		int droppedMeat = Mathf.RoundToInt(baseMeat + Random.Range(mathForLevelMin * currLevel, mathForLevelMax * currLevel));
 		int meatPieces = droppedMeat / 10 + (droppedMeat % 10 != 0? 1 : 0);
@@ -278,6 +295,60 @@ public class BattleManager : MonoBehaviour {
 				});
 		}
 
+		List<BodyPart> unownedParts = new List<BodyPart>();
+		for(int i = 0; i < enemyMonster.usedBodyParts.Count; ++i) {
+			if (!partsManager.IsOwnedByPlayerBodyPart(enemyMonster.usedBodyParts[i]))
+				unownedParts.Add(enemyMonster.usedBodyParts[i]);
+		}
+
+		if(unownedParts.Count != 0) {
+			BodyPart partToAdd = unownedParts.Random();
+			partsManager.AddToPlayerParts(partToAdd);
+
+			GameObject meatgo = new GameObject("Flying body part");
+			meatgo.transform.SetParent(canvas.transform);
+			Image img = meatgo.AddComponent<Image>();
+			img.sprite = partToAdd.sr.sprite;
+			Color c = img.color;
+			c.a = 0.0f;
+			img.color = c;
+			img.SetNativeSize();
+			img.rectTransform.sizeDelta /= 2;
+
+			meatgo.transform.position = GameManager.Instance.Camera.WorldToScreenPoint(enemyBottomPos.position + (Vector3)Random.insideUnitCircle);
+			meatgo.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0, 360f));
+
+			LeanTween.value(0, 1, 0.5f)
+				.setOnUpdate((float a) => {
+					c = img.color;
+					c.a = a;
+					img.color = c;
+				})
+				.setOnComplete(() => {
+					Vector3 startPos = meatgo.transform.position;
+					Vector3 startAngle = meatgo.transform.localEulerAngles;
+					float dist = (bodyPartCollectorPos.position - startPos).magnitude;
+
+					LeanTween.value(0, 1, dist / Screen.height * 0.8f)
+					.setDelay(0.1f * meatPieces)
+					.setOnUpdate((float t) => {
+						meatgo.transform.position = Vector3.Lerp(startPos, bodyPartCollectorPos.position, t);
+						meatgo.transform.localEulerAngles = Vector3.Lerp(startAngle, Vector3.zero, t);
+					});
+
+					LeanTween.value(1, 0, 0.2f)
+					.setDelay(0.1f * meatPieces + dist / Screen.height * 0.64f)
+					.setOnUpdate((float t) => {
+						c = img.color;
+						c.a = t;
+						img.color = c;
+						meatgo.transform.localScale = Vector3.one * t;
+					})
+					.setEase(LeanTweenType.easeInCubic);
+				});
+		}
+
+		enemyMonster = null;
 		playerMonster.ResetHealth();
 		LeanTween.delayedCall(1.5f, CreateNewEnemy);
 	}
