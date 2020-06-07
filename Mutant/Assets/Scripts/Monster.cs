@@ -198,6 +198,7 @@ public class Monster : MonoBehaviour {
 		}
 
 		for (int i = 0; i < placedParts.Count; ++i) {
+			if(placedParts[i] == null) continue;
 			for (int j = 0; j < placedParts[i].stats.Length; ++j) {
 				Stats[j] += placedParts[i].stats[j].value;
 			}
