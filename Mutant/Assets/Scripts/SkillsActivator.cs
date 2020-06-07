@@ -45,8 +45,6 @@ public class SkillsActivator : MonoBehaviour, IDropHandler
    {
       bool critChance = RandomEx.GetEventWithChance(crit);
       float currentDamage = this.currentMonster.Stats[(int) StatType.Attack];
-      // TODO 
-      // currentDamage = 10;
       this.currentMonster.TakeDamage((critChance) ?(currentDamage * damageMultiper) : currentDamage);
       Debug.Log((critChance) ?(currentDamage * damageMultiper) : currentDamage);
       

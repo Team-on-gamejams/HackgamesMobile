@@ -16,6 +16,7 @@ public class CartObject : MonoBehaviour
    [SerializeField] public float  heal;
    [SerializeField] public int  critChance;
    [SerializeField] public int  cooldown;
+   [SerializeField] public int  gear;
 
    [Header("Text inputs")] [Space] [SerializeField]
    public TextMeshProUGUI descriptionField;
@@ -23,6 +24,7 @@ public class CartObject : MonoBehaviour
    public TextMeshProUGUI defenceField;
    public TextMeshProUGUI healField;
    public TextMeshProUGUI critChanceField;
+   public TextMeshProUGUI gearField;
 
    [Header("Images Sources")] [Space] [SerializeField]
    public Sprite cartOverlay;
@@ -40,10 +42,29 @@ public class CartObject : MonoBehaviour
       healField.text = heal.ToString(CultureInfo.InvariantCulture);
       defenceField.text = defence.ToString(CultureInfo.InvariantCulture);
       critChanceField.text = critChance.ToString();
+      gearField.text = gear.ToString();
 
       overlayPosition.sprite = cartOverlay;
       borderPosition.sprite = cartBorder;
       partPosition.sprite = cartPart;
 
+   }
+
+   public void SetPartSprite(Sprite sprite)
+   {
+      this.cartPart = sprite;
+   }
+
+   public void SetCartStats(float damage, float heal, float deffence, int crit, int cd, string description, int gear)
+   {
+      this.gear = gear;
+      this.description = description;
+      this.cooldown = cd;
+      this.damage = damage;
+      this.heal = heal;
+      this.defence = deffence;
+      this.critChance = crit;
+      
+      this.Awake();
    }
 }

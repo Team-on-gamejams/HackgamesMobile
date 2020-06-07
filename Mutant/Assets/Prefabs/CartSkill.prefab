@@ -216,7 +216,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 03602ccdf78f7294da8f81beab6ff713, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -660,11 +660,13 @@ MonoBehaviour:
   heal: 50
   critChance: 50
   cooldown: 1
+  gear: 0
   descriptionField: {fileID: 1232315486346198016}
   damageField: {fileID: 1232315486365025382}
   defenceField: {fileID: 1232315485319315580}
   healField: {fileID: 1232315485478139275}
   critChanceField: {fileID: 1232315485046521453}
+  gearField: {fileID: 1232315485642281690}
   cartOverlay: {fileID: 21300000, guid: 87e72ceba2c9ec54593d319705ad4112, type: 3}
   cartBorder: {fileID: 21300000, guid: b251d54f4025ca3458db80b21aebb216, type: 3}
   cartPart: {fileID: 21300000, guid: 9453390b9a65e19488a676e041a70a37, type: 3}

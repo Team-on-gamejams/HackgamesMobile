@@ -5,10 +5,9 @@ using UnityEngine.EventSystems;
 
 public class CartDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private Transform toTopPosition;
-    [SerializeField] private Transform toDefaultPosition;
-
-    public float damage = 200;
+    [SerializeField] public Transform toTopPosition;
+    [SerializeField] public Transform toDefaultPosition;
+    
     private bool onCooldown = false;
     public void OnDrag(PointerEventData eventData)
     {
