@@ -19,16 +19,16 @@ public class StatWidget : MonoBehaviour {
 
 	void OnStatChange() {
 		if (type == StatType.CriticalChance)
-			fieldText.text = $"{monster.Stats[(int)type]}%";
+			fieldText.text = $"{monster.Stats[(int)type].ToString("0.00")}%";
 		else
-			fieldText.text = $"{monster.Stats[(int)type]}";
+			fieldText.text = $"{monster.Stats[(int)type].ToString("0.00")}";
 
 	}
 
 	void OnHpChange() {
 		if(isJustStat)
-			fieldText.text = $"{(int)monster.Stats[(int)type]}";
+			fieldText.text = $"{monster.Stats[(int)type].ToString("0.00")}";
 		else
-			fieldText.text = $"{(int)monster.currHp}/{(int)monster.Stats[(int)type]}";
+			fieldText.text = $"{monster.currHp.ToString("0.00")}/{monster.Stats[(int)type].ToString("0.00")}";
 	}
 }

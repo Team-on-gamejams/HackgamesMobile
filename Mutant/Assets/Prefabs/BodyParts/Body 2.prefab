@@ -229,18 +229,25 @@ MonoBehaviour:
   stats:
   - type: 0
     value: 100
+    growPerLevel: 0.2
   - type: 1
     value: 1
+    growPerLevel: 0.2
   - type: 2
     value: 3
+    growPerLevel: 0.2
   - type: 3
     value: 20
+    growPerLevel: 0.2
   - type: 4
     value: 1
+    growPerLevel: 0
   - type: 5
     value: 15
+    growPerLevel: 0
   - type: 6
     value: 1
+    growPerLevel: 0
   connectionParts: 010000000200000003000000060000000800000009000000
   connectionPoints:
   - {fileID: 7097864194932272756}

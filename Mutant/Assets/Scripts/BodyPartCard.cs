@@ -18,7 +18,7 @@ public class BodyPartCard : MonoBehaviour {
 	[SerializeField] TextMeshProUGUI attackField;
 	[SerializeField] TextMeshProUGUI attackRateField;
 
-	public void Init(BodyPart _part) {
+	public void Init(BodyPart _part, PartsManager parts) {
 		part = _part;
 
 		image.sprite = part.sr.sprite;
@@ -26,11 +26,16 @@ public class BodyPartCard : MonoBehaviour {
 		nameField.text = part.gameName;
 		descField.text = part.gameDescription;
 
-		level.text = part.stats[(int)StatType.GearLevel].value.ToString();
+		int lvl = parts.GetPlayerLevel(part);
+		level.text = lvl.ToString();
 
-		hpField.text = part.stats[(int)StatType.Hp].value.ToString();
-		armorField.text = part.stats[(int)StatType.Armor].value.ToString();
-		attackField.text = part.stats[(int)StatType.Attack].value.ToString();
-		attackRateField.text = part.stats[(int)StatType.AttackSpeed].value.ToString();
+		hpField.text = GetStatWithBonus(StatType.Hp).ToString();
+		armorField.text = GetStatWithBonus(StatType.Armor).ToString();
+		attackField.text = GetStatWithBonus(StatType.Attack).ToString();
+		attackRateField.text = GetStatWithBonus(StatType.AttackSpeed).ToString();
+
+		float GetStatWithBonus(StatType type) {
+			return part.stats[(int)type].value + part.stats[(int)type].value * lvl * part.stats[(int)type].growPerLevel;
+		}
 	}
 }

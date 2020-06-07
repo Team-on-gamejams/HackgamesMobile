@@ -163,7 +163,7 @@ public class Monster : MonoBehaviour {
 
 	public void RecalcStats() {
 		for (int i = 0; i < Stats.Length; ++i) {
-			if(i != (int)StatType.Meat || i != (int)StatType.Dna)
+			if(i != (int)StatType.Meat && i != (int)StatType.Dna)
 				Stats[i] = 0.0f;
 		}
 
@@ -202,6 +202,15 @@ public class Monster : MonoBehaviour {
 				BodyPart part = Instantiate(partPrefab, pos, Quaternion.identity, parent).GetComponent<BodyPart>();
 				part.isForce = isForce;
 				part.transform.localEulerAngles = Vector3.zero;
+
+				if (IsPlayer) {
+					part.level = PartsManager.instance.GetPlayerLevel(partPrefab);
+					part.RecalcStatForLevelBonus();
+				}
+				else {
+					//TODO: enemy progression
+				}
+
 				if(bodyPartsImages != null && bodyPartsImages.Length > (int)type)
 					bodyPartsImages[(int)type].sprite = partPrefab.sr.sprite;
 				return part;

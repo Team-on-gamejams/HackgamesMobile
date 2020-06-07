@@ -6,6 +6,7 @@ public class BodyPart : MonoBehaviour {
 	public BodyPartType type;
 	[System.NonSerialized] public bool isEquipedByPlayer;
 	[System.NonSerialized] public bool isForce = false;
+	[System.NonSerialized] public int level = 0;
 
 	[Header("Card info")][Space]
 	public string gameName;
@@ -13,6 +14,8 @@ public class BodyPart : MonoBehaviour {
 	
 	[Header("Stats")][Space]
 	public StatValue[] stats;
+	public float levelUpPrice = 10;
+	public float levelUpPriceGrow = 1.0f;
 
 	[Header("Connectors")]
 	[Space]
@@ -63,6 +66,12 @@ public class BodyPart : MonoBehaviour {
 		}
 	}
 
+	public void RecalcStatForLevelBonus() {
+		for (int j = 0; j < stats.Length; ++j) {
+			stats[j].value += stats[j].value * stats[j].growPerLevel * level;
+		}
+	}
+
 	public void OnDie() {
 		if(rigidbody != null) {
 			rigidbody.simulated = true;
@@ -92,4 +101,5 @@ public class BodyPart : MonoBehaviour {
 public class StatValue {
 	public StatType type;
 	public float value;
+	public float growPerLevel = 0.0f;
 }

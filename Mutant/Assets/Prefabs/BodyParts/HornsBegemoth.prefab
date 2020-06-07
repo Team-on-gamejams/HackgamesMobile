@@ -99,26 +99,34 @@ MonoBehaviour:
   gameName: "\u0420\u043E\u0433\u0430"
   gameDescription: "\u0414\u0430\u0454 \u0440\u0438\u0432\u043E\u043A <color=red>5</color>
     \u0440\u0456\u0432\u043D\u044F"
-  cardSprite: {fileID: 21300000, guid: 6f6c22578b2e77740989b3cbb7f918ff, type: 3}
   stats:
   - type: 0
     value: 15
+    growPerLevel: 0.2
   - type: 1
     value: 0
+    growPerLevel: 0.2
   - type: 2
     value: 0
+    growPerLevel: 0.2
   - type: 3
     value: 2
+    growPerLevel: 0.2
   - type: 4
     value: 0
+    growPerLevel: 0
   - type: 5
     value: 0
+    growPerLevel: 0
   - type: 6
     value: 0
+    growPerLevel: 0
   connectionParts: 
   connectionPoints: []
   rigidbody: {fileID: -901953507752462369}
+  rigidbody2: {fileID: 0}
   sr: {fileID: 1047671715729693574}
+  sr2: {fileID: 0}
 --- !u!50 &-901953507752462369
 Rigidbody2D:
   serializedVersion: 4

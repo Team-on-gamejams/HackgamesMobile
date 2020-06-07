@@ -4,9 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PartsManager : MonoBehaviour {
+	public static PartsManager instance;
+
 	public Action OnNewPlayerPartsAvaliable;
 
 	[SerializeField] TypedBodyPartsList[] allParts;
+
+	private void Awake() {
+		instance = this;
+	}
 
 	public BodyPart GetRandomPart(BodyPartType type) {
 		return allParts[(int)type].parts.Random();
@@ -38,6 +44,10 @@ public class PartsManager : MonoBehaviour {
 			//}
 		}
 
+		for (int i = 0; i < allParts.Length; ++i) {
+			allParts[i].playerlevel = new int[allParts[i].parts.Length];
+		}
+
 		playerMonster.usedBodyParts.Add(GetAllOwnedByPlayer(BodyPartType.Body)[0]);
 		playerMonster.usedBodyParts.Add(GetAllOwnedByPlayer(BodyPartType.Arms)[0]);
 		playerMonster.usedBodyParts.Add(GetAllOwnedByPlayer(BodyPartType.Legs)[0]);
@@ -52,6 +62,36 @@ public class PartsManager : MonoBehaviour {
 
 		OnNewPlayerPartsAvaliable?.Invoke();
 	}
+
+	public int GetPlayerLevel(BodyPart partToFind) {
+		for(int i = 0; i < allParts[(int)partToFind.type].playerlevel.Length; ++i) {
+			if(partToFind == allParts[(int)partToFind.type].parts[i]) {
+				return allParts[(int)partToFind.type].playerlevel[i];
+			}
+		}
+
+
+		return 2;
+	}
+
+	public int GetUpgradePrice(BodyPart partToFind) {
+		for (int i = 0; i < allParts[(int)partToFind.type].playerlevel.Length; ++i) {
+			if (partToFind == allParts[(int)partToFind.type].parts[i]) {
+				float levelUpPrice = allParts[(int)partToFind.type].parts[i].levelUpPrice;
+				return Mathf.RoundToInt(levelUpPrice + levelUpPrice * allParts[(int)partToFind.type].parts[i].levelUpPriceGrow * allParts[(int)partToFind.type].playerlevel[i]);
+			}
+		}
+
+		return 100;
+	}
+
+	public void LevelUpPart(BodyPart partToFind) {
+		for (int i = 0; i < allParts[(int)partToFind.type].playerlevel.Length; ++i) {
+			if (partToFind == allParts[(int)partToFind.type].parts[i]) {
+				++allParts[(int)partToFind.type].playerlevel[i];
+			}
+		}
+	}
 }
 
 [Serializable]
@@ -59,4 +99,5 @@ public class TypedBodyPartsList {
 	public BodyPartType type;
 	public BodyPart[] parts;
 	public bool[] isOwnedByPlayer;
+	public int[] playerlevel;
 }

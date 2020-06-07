@@ -20,6 +20,7 @@ public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 	[SerializeField] CanvasGroup bottomBar;
 	[SerializeField] Button buttonEquip;
 	[SerializeField] TMPro.TextMeshProUGUI buttonEquipText;
+	[SerializeField] TMPro.TextMeshProUGUI priceTextField;
 
 	int selectedId = 0;
 	int[] selectedCard;
@@ -52,6 +53,7 @@ public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 			buttonEquipText.text = equip;
 			buttonEquip.interactable = true;
 		}
+		priceTextField.text = partsManager.GetUpgradePrice(cards[selectedId][selectedCard[selectedId]].part).ToString();
 	}
 
 	public void OnBeginDrag(PointerEventData eventData) {
@@ -123,7 +125,19 @@ public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 	}
 
 	public void OnUpgradeClick() {
+		int price = partsManager.GetUpgradePrice(cards[selectedId][selectedCard[selectedId]].part);
 
+		if(playerMonster.Stats[(int)StatType.Meat] >= price) {
+			playerMonster.AddStatBonus(StatType.Meat, -price);
+			partsManager.LevelUpPart(cards[selectedId][selectedCard[selectedId]].part);
+			cards[selectedId][selectedCard[selectedId]].Init(cards[selectedId][selectedCard[selectedId]].part, partsManager);
+			priceTextField.text = partsManager.GetUpgradePrice(cards[selectedId][selectedCard[selectedId]].part).ToString();
+
+			if (cards[selectedId][selectedCard[selectedId]].part.isEquipedByPlayer)
+				playerMonster.RecreateBodyParts(true);
+		}
+
+		
 	}
 
 	void RecreateCards() {
@@ -142,13 +156,13 @@ public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 
 			for (int j = 0; j < selectedCard[i]; ++j) {
 				BodyPartCard card = Instantiate(partCardPrefab, cardsCenter.position, Quaternion.identity, tabs[i].transform).GetComponent<BodyPartCard>();
-				card.Init(parts[j]);
+				card.Init(parts[j], partsManager);
 				cards[i].Add(card);
 			}
 
 			for (int j = parts.Length - 1; j >= selectedCard[i]; --j) {
 				BodyPartCard card = Instantiate(partCardPrefab, cardsCenter.position, Quaternion.identity, tabs[i].transform).GetComponent<BodyPartCard>();
-				card.Init(parts[j]);
+				card.Init(parts[j], partsManager);
 				cards[i].Add(card);
 			}
 
@@ -184,5 +198,6 @@ public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 			buttonEquipText.text = equip;
 			buttonEquip.interactable = true;
 		}
+		priceTextField.text = partsManager.GetUpgradePrice(cards[selectedId][selectedCard[selectedId]].part).ToString();
 	}
 }
