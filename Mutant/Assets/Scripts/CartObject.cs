@@ -44,7 +44,12 @@ public class CartObject : MonoBehaviour
       critChanceField.text = critChance.ToString();
       gearField.text = gear.ToString();
 
-      overlayPosition.sprite = cartOverlay;
+        damageField.gameObject.SetActive(damage != 0);
+        healField.gameObject.SetActive(heal != 0);
+        defenceField.gameObject.SetActive(defence != 0);
+        critChanceField.gameObject.SetActive(critChance != 0);
+
+        overlayPosition.sprite = cartOverlay;
       borderPosition.sprite = cartBorder;
       partPosition.sprite = cartPart;
 

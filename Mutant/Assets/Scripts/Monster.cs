@@ -103,6 +103,10 @@ public class Monster : MonoBehaviour {
 			currHp += heal;
 			if (currHp > Stats[(int)StatType.Hp])
 				currHp = Stats[(int)StatType.Hp];
+
+			healthBarImage.fillAmount = currHp / Stats[(int)StatType.Hp];
+			healthBarImageLowAnim.fillAmount = currHp / Stats[(int)StatType.Hp];
+
 			onHpChangeEvent?.Invoke();
 		}
 	}

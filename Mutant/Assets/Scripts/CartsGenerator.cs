@@ -4,35 +4,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class CartsGenerator : MonoBehaviour
-{
-    [SerializeField] private List<GameObject> cartsCells;
+public class CartsGenerator : MonoBehaviour {
+	[SerializeField] private List<GameObject> cartsCells;
 
-    [SerializeField] private Monster currentMonster;
-    [SerializeField] private GameObject cartPrefab;
-    [SerializeField] private List<GameObject> readyCarts;
-    [SerializeField] private Transform activePlace;
+	[SerializeField] private Monster currentMonster;
+	[SerializeField] private GameObject cartPrefab;
+	[SerializeField] private List<GameObject> readyCarts;
+	[SerializeField] private Transform activePlace;
 
-    void Start()
-    {
-        foreach (BodyPart part in currentMonster.placedParts)
-        {
-            Debug.Log(part.sr.sprite);
-            GameObject item = Instantiate(cartPrefab);
-            CartObject currentObject = item.GetComponent<CartObject>();
-            currentObject.SetPartSprite(part.sr.sprite);
-            // TODO throw stats on method 👇 🔽🔽🔽🔽🔽
-            currentObject.SetCartStats(10f, 5f, 0f, 50, 5, "Custom text", (int) Random.Range(1f, 1000f));
-            readyCarts.Add(item);
-        }
+	void Start() {
+		GameObject item = Instantiate(cartPrefab);
+		CartObject currentObject = item.GetComponent<CartObject>();
+		currentObject.SetPartSprite(currentMonster.placedParts[0].sr.sprite);
+		// TODO throw stats on method 👇 🔽🔽🔽🔽🔽
+		currentObject.SetCartStats(0f, 100f, 0f, 50, 5, "Відновлює <color=green>100</color> здоров'я", 1);
+		readyCarts.Add(item);
 
-        for (int index = 0; index < cartsCells.Count && readyCarts[index] != null; index++)
-        {
-            GameObject currentCart = readyCarts[index];
-            currentCart.transform.SetParent(cartsCells[index].transform);
-            currentCart.GetComponent<CartDragHandler>().toDefaultPosition = cartsCells[index].transform;
-            currentCart.GetComponent<CartDragHandler>().toTopPosition = activePlace;
-            currentCart.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        }
-    }
+		item = Instantiate(cartPrefab);
+		currentObject = item.GetComponent<CartObject>();
+		currentObject.SetPartSprite(currentMonster.placedParts[1].sr.sprite);
+		// TODO throw stats on method 👇 🔽🔽🔽🔽🔽
+		currentObject.SetCartStats(2f, 0f, 0f, 50, 5, "Наносить <color=red>х 2</color> пошкоджень", 1);
+		readyCarts.Add(item);
+
+		for (int index = 0; index < 2 && readyCarts[index] != null; index++) {
+			GameObject currentCart = readyCarts[index];
+			currentCart.transform.SetParent(cartsCells[index].transform);
+			currentCart.GetComponent<CartDragHandler>().toDefaultPosition = cartsCells[index].transform;
+			currentCart.GetComponent<CartDragHandler>().toTopPosition = activePlace;
+			currentCart.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+		}
+	}
 }
