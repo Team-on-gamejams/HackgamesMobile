@@ -220,7 +220,8 @@ public class Monster : MonoBehaviour {
 					part.RecalcStatForLevelBonus();
 				}
 				else {
-					//TODO: enemy progression
+					part.level = BattleManager.instance.currLevel / 10;
+					part.RecalcStatForLevelBonus();
 				}
 
 				if(bodyPartsImages != null && bodyPartsImages.Length > (int)type)

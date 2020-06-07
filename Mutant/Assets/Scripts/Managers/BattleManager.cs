@@ -6,6 +6,7 @@ using TMPro;
 using System.Diagnostics;
 
 public class BattleManager : MonoBehaviour {
+	static public BattleManager instance;
 	public System.Action<Monster> onEnemySpawnEvent;
 
 	[SerializeField] Monster playerMonster;
@@ -23,7 +24,6 @@ public class BattleManager : MonoBehaviour {
 	[SerializeField] TextMeshProUGUI levelTextField1;
 	[SerializeField] AudioClip counterSound;
 
-
 	[Header("Boss")] [Space]
 	[SerializeField] BodyPart[] bossParts;
 	[SerializeField] int bossLevels = 10;
@@ -39,7 +39,11 @@ public class BattleManager : MonoBehaviour {
 	Monster enemyMonster;
 
 	int isInBattle = 1;
-	int currLevel = 0;
+	public int currLevel = 0;
+
+	private void Awake() {
+		instance = this;
+	}
 
 	private void Start() {
 		if (partsManager.IsHavePlayerSave()) {
@@ -51,10 +55,10 @@ public class BattleManager : MonoBehaviour {
 		playerMonster.onDie += OnPlayerDie;
 		playerMonster.RecreateBodyParts();
 
-		CreateNewEnemy();
-
 		currLevel = PlayerPrefs.GetInt("CurrBattleLevel", 0);
 		levelTextField1.text = currLevel.ToString();
+
+		CreateNewEnemy();
 
 		if (PlayerPrefs.HasKey("Meat")) {
 			long lastTicks = PlayerPrefsX.GetLong("TicksLastExit", 0);
