@@ -19,6 +19,8 @@ public class PartsManager : MonoBehaviour {
 	}
 
 	public BodyPart GetRandomPart(BodyPartType type) {
+		if(type == BodyPartType.Body || type == BodyPartType.Head || type == BodyPartType.Eyes || type == BodyPartType.Tail || type == BodyPartType.Wings || type == BodyPartType.Horns)
+			return allParts[(int)type].parts.RandomExceptLast();
 		return allParts[(int)type].parts.Random();
 	}
 

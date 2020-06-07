@@ -23,6 +23,11 @@ public class BattleManager : MonoBehaviour {
 	[SerializeField] TextMeshProUGUI levelTextField1;
 	[SerializeField] AudioClip counterSound;
 
+
+	[Header("Boss")] [Space]
+	[SerializeField] BodyPart[] bossParts;
+	[SerializeField] int bossLevels = 10;
+
 	[Header("Balance")] [Space]
 	[SerializeField] float baseMeat = 10;
 	[SerializeField] float mathForLevelMin = 0.5f;
@@ -187,17 +192,25 @@ public class BattleManager : MonoBehaviour {
 		enemyMonster = Instantiate(enemyPrefab, enemyPos.position, Quaternion.identity, enemyPos);
 		enemyMonster.onDie += OnEnemyDie;
 
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Body));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Arms));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Legs));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Tail));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Wings));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Fur));
+		if (currLevel != 0 && currLevel % bossLevels == 0) {
+			foreach (var part in bossParts) {
+				enemyMonster.usedBodyParts.Add(part);
+			}
+		}
+		else {
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Body));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Arms));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Legs));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Tail));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Wings));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Fur));
 
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Head));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Teeth));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Eyes));
-		enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Horns));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Head));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Teeth));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Eyes));
+			enemyMonster.usedBodyParts.Add(partsManager.GetRandomPart(BodyPartType.Horns));
+		}
+
 		enemyMonster.RecreateBodyParts();
 
 		onEnemySpawnEvent?.Invoke(enemyMonster);
