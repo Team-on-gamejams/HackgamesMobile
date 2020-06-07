@@ -326,11 +326,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsPlayer: 0
   usedBodyParts: []
+  appearSounds:
+  - {fileID: 8300000, guid: 53d82de94de39294e8eaa2b677d32f60, type: 3}
+  - {fileID: 8300000, guid: c3114ec2369e927448c1dac75c260636, type: 3}
+  - {fileID: 8300000, guid: 643969a4718852c49abe4794df80ce34, type: 3}
+  dieSounds:
+  - {fileID: 8300000, guid: 0a40eb51e98beb04f9318a6aab58c6b2, type: 3}
+  - {fileID: 8300000, guid: e33db054774368b47a433c821c9d70ef, type: 3}
+  - {fileID: 8300000, guid: ab9fd8f5137cee74ba50d8224b757041, type: 3}
+  takeDamageSounds:
+  - {fileID: 8300000, guid: edc2e039bb95bc341b9d136528b2c2ed, type: 3}
+  - {fileID: 8300000, guid: 933767ba9bcb71e43b8f7eb979db8107, type: 3}
+  - {fileID: 8300000, guid: 899afa46950446a40b5c2d2542a69022, type: 3}
+  - {fileID: 8300000, guid: 04a77a246a78d8b4a8f04e27bafed70e, type: 3}
+  - {fileID: 8300000, guid: c66ddbe88e859b34cb2acd494af1eac4, type: 3}
+  - {fileID: 8300000, guid: ec78018912febb44b9755957a7a30f18, type: 3}
+  - {fileID: 8300000, guid: da38bf4e63207fb4891cdde4c3cc93d3, type: 3}
+  - {fileID: 8300000, guid: 93a7636657812f746a8e717f0d3a8b8a, type: 3}
+  - {fileID: 8300000, guid: 3fcad7f8c9ec66d43a0e0aaa720f1891, type: 3}
+  - {fileID: 8300000, guid: 3c7049d3c67fb8243a9bc0567e4e55ee, type: 3}
   healBarTime: 3
   healthBarImage: {fileID: 2530694437066339042}
   healthBarImageLowAnim: {fileID: 1804335337603562204}
   healthBarImageBack: {fileID: 6628346091133184135}
   bodyPartsImages: []
+  placedParts: []
 --- !u!114 &8471344004418525199
 MonoBehaviour:
   m_ObjectHideFlags: 0

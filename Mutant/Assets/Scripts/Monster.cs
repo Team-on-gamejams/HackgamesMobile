@@ -15,6 +15,11 @@ public class Monster : MonoBehaviour {
 	[SerializeField] bool IsPlayer = false;
 	public List<BodyPart> usedBodyParts;
 
+	[Header("Audio")] [Space]
+	[SerializeField] AudioClip[] appearSounds;
+	[SerializeField] AudioClip[] dieSounds;
+	[SerializeField] AudioClip[] takeDamageSounds;
+
 	[Header("Health")] [Space]
 	[SerializeField] float healBarTime = 0.2f;
 	[SerializeField] Image healthBarImage;
@@ -35,6 +40,9 @@ public class Monster : MonoBehaviour {
 		}
 
 		onHpChangeEvent += OnHpChange;
+
+		if(appearSounds != null && appearSounds.Length != 0)
+			AudioManager.Instance.Play(appearSounds.Random(), 0.33f, channel: AudioManager.AudioChannel.Sound);
 	}
 
 	private void OnDestroy() {
@@ -136,8 +144,18 @@ public class Monster : MonoBehaviour {
 			currHp = 0;
 			foreach (var part in placedParts)
 				part.OnDie();
+			if(dieSounds != null && dieSounds.Length != 0) {
+				AudioSource die = AudioManager.Instance.Play(dieSounds.Random(), 0.33f, channel: AudioManager.AudioChannel.Sound);
+				LeanTween.value(0.33f, 0.0f, 1.5f)
+					.setOnUpdate((float v)=> {
+						die.volume = v;
+					});
+			}
 			onDie?.Invoke();
 		}
+
+		if (takeDamageSounds != null && takeDamageSounds.Length != 0)
+			AudioManager.Instance.Play(takeDamageSounds.Random(), 0.2f, channel: AudioManager.AudioChannel.Sound);
 
 		onHpChangeEvent?.Invoke();
 	}
