@@ -292,7 +292,7 @@ MonoBehaviour:
       needSteamPush: 0
       needGoogleDricePush: 0
   - editorName: Local + Zip + itch.io
-    itchGameLink: teamon/gametemplate
+    itchGameLink: teamon/this-is-mutaaant
     builds:
     - outputRoot: Builds/
       middlePath: $NAME_$VERSION_$PLATFORM/$NAME_$VERSION/$NAME$EXECUTABLE
