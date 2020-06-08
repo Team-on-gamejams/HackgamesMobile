@@ -388,8 +388,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  gameName: "\u0413\u043E\u043B\u043E\u0432\u0430"
-  gameDescription: "\u043D\u0430 \u043F\u043B\u0435\u0447\u0430\u0445"
+  gameName: Heads
+  gameDescription: Better that one!
   stats:
   - type: 0
     value: 15

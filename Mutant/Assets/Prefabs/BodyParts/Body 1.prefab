@@ -228,9 +228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  gameName: "\u0422\u0456\u043B\u043E"
-  gameDescription: "\u041E\u0441\u043D\u043E\u0432\u043D\u0430 \u0447\u0430\u0441\u0442\u0438\u043D\u0430
-    \u043C\u0443\u0442\u0430\u043D\u0442\u0430"
+  gameName: Body
+  gameDescription: Main mutant part
   stats:
   - type: 0
     value: 100

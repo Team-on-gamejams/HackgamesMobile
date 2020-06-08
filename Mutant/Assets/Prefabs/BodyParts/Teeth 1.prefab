@@ -96,9 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 5
-  gameName: "\u0417\u0443\u0431\u0438 "
-  gameDescription: "\u0417\u0431\u0456\u043B\u044C\u0448\u0443\u044E\u0442\u044C
-    \u043F\u043E\u0448\u043A\u043E\u0434\u0436\u0435\u043D\u043D\u044F"
+  gameName: Teeht
+  gameDescription: Increase damage
   stats:
   - type: 0
     value: 15

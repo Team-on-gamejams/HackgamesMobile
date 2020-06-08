@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 6
-  gameName: "\u041A\u0440\u0438\u043B\u0430"
-  gameDescription: "\u0412\u0436\u0443\u0445!"
+  gameName: Wings
+  gameDescription: 
   stats:
   - type: 0
     value: 15

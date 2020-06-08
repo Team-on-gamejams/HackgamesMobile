@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
-  gameName: "\u041D\u043E\u0433\u0438"
+  gameName: Legs
   gameDescription: 
   stats:
   - type: 0

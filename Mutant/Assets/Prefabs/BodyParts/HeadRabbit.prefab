@@ -129,9 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  gameName: "\u0413\u043E\u043B\u043E\u0432\u0430"
-  gameDescription: "\u041E\u0441\u043D\u043E\u0432\u0430 \u0434\u043B\u044F \u043E\u0447\u0435\u0439,
-    \u0440\u0456\u0433 \u0442\u0430 \u0437\u0443\u0431\u0456\u0432"
+  gameName: Head
+  gameDescription: 
   stats:
   - type: 0
     value: 15

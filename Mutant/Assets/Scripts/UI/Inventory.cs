@@ -6,8 +6,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler {
-	const string equip = "Екіпірувати";
-	const string equiped = "Екіпіровано";
+	const string equip = "Equip";
+	const string equiped = "Equiped";
 
 	[SerializeField] Button[] buttons;
 	[SerializeField] RectTransform[] tabs;

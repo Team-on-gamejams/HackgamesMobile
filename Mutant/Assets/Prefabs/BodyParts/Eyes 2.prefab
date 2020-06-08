@@ -96,9 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 4
-  gameName: "\u041E\u0447\u0456"
-  gameDescription: "\u0417\u0431\u0456\u043B\u044C\u0448\u0443\u044E\u0442\u044C
-    \u0448\u0430\u043D\u0441 \u043A\u0440\u0456\u0442\u0430"
+  gameName: Eyes
+  gameDescription: Increase critical hit chance
   stats:
   - type: 0
     value: 15

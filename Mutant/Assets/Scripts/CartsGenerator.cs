@@ -17,14 +17,14 @@ public class CartsGenerator : MonoBehaviour {
 		CartObject currentObject = item.GetComponent<CartObject>();
 		currentObject.SetPartSprite(currentMonster.placedParts[0].sr.sprite);
 		// TODO throw stats on method 👇 🔽🔽🔽🔽🔽
-		currentObject.SetCartStats(0f, 100f, 0f, 50, 5, "Відновлює <color=green>100</color> здоров'я", 1);
+		currentObject.SetCartStats(0f, 100f, 0f, 50, 5, "Heal <color=green>100</color> HP", 1);
 		readyCarts.Add(item);
 
 		item = Instantiate(cartPrefab);
 		currentObject = item.GetComponent<CartObject>();
 		currentObject.SetPartSprite(currentMonster.placedParts[1].sr.sprite);
 		// TODO throw stats on method 👇 🔽🔽🔽🔽🔽
-		currentObject.SetCartStats(2f, 0f, 0f, 50, 5, "Наносить <color=red>х 2</color> пошкоджень", 1);
+		currentObject.SetCartStats(2f, 0f, 0f, 50, 5, "Deal <color=red>х 2</color> damage", 1);
 		readyCarts.Add(item);
 
 		for (int index = 0; index < 2 && readyCarts[index] != null; index++) {

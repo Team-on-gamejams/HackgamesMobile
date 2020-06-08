@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 8
-  gameName: "\u0425\u0432\u0456\u0441\u0442"
+  gameName: Tail
   gameDescription: 
   stats:
   - type: 0
