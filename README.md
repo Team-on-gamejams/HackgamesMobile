@@ -2,7 +2,7 @@
 Theme: Idle game  
 
 ![Cover](Screenshots/Title.png)  
-Arena fighting game, where player manage mutant, use skills to kill enemies and collect meat and new body parts to upgrade own mutant.
+Manage your own mutant! Add new body parts, upgrade them, slash your enemies and collect their meat.  
 
 # Downloads and Links
 Available in [Windows, Linux, OSX, Web and Android](https://teamon.itch.io/this-is-mutaaant). If you encounter any problem, please leave a issue!
